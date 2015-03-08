@@ -112,7 +112,7 @@ public class kalahFunctions {
 				else {
 					//go forward
 				if (tempLoop == numofcols - 1){
-					tempLoop++;
+					tempLoop--;
 				}
 				gridInit[numofrows - 2][tempLoop] = (byte) (gridInit[numofrows - 2][tempLoop] + 1);
 				direction = true;
@@ -140,7 +140,7 @@ public class kalahFunctions {
 				System.out.println("\n" + grid);
 				grid.grid = new byte[][] { 
 						
-						{0,3,2,0,3,3,3,0},
+						{0,9,2,0,3,3,3,0},
 						{0,3,3,3,3,3,3,0}
 						};
 				
