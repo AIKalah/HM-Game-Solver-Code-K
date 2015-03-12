@@ -11,10 +11,12 @@ public class kalahFunctions {
 		int track = 0;
 		int lastPit = 0;
 		boolean direction = true; //true direction means on the players side of the board
+		kalahArrayClass clonedGrid;
 		byte gridInit [][];
 		
 			//choose the first one
-			gridInit = grid.grid;
+			clonedGrid = grid.clone();
+			gridInit = clonedGrid.grid;
 			byte temp = gridInit [numofrows - 1][pitCol];
 			byte tempLoop = (byte) (pitCol + 1);
 			gridInit[numofrows - 1][pitCol] = 0;
@@ -29,7 +31,7 @@ public class kalahFunctions {
 						gridInit[numofrows - 2][tempLoop] = (byte) (gridInit[numofrows - 2][tempLoop] + 1);
 						direction = false;
 						if (checkEveryMove == true){
-							System.out.println("\n" + grid);
+							System.out.println("\n" + clonedGrid);
 						}
 						track = k;
 						lastPit = tempLoop;
@@ -45,7 +47,7 @@ public class kalahFunctions {
 				gridInit[numofrows - 1][tempLoop] = (byte) (gridInit[numofrows - 1][tempLoop] + 1);
 				direction = true;
 				if (checkEveryMove == true){
-					System.out.println("\n" + grid);
+					System.out.println("\n" + clonedGrid);
 				}
 				lastPit = tempLoop;
 				tempLoop++;
@@ -65,12 +67,7 @@ public class kalahFunctions {
 				gridInit [numofrows - 2][lastPit] = 0;
 				System.out.print("\nTAKE ALL TEH SCORES");
 			}
-				System.out.println("\n" + grid);
-				grid.grid = new byte[][] { 
-						
-						{0,9,2,0,3,3,3,0},
-						{0,3,3,3,3,3,3,0}
-						};
+				System.out.println("\n" + clonedGrid);
 		
 	}
 	
@@ -78,10 +75,12 @@ public class kalahFunctions {
 		int track = 0;
 		int lastPit = 0;
 		boolean direction = true; //true direction means on the players side of the board
+		kalahArrayClass clonedGrid;
 		byte gridInit [][];
 		
 			//choose the first one
-			gridInit = grid.grid;
+			clonedGrid = grid.clone();
+			gridInit = clonedGrid.grid;
 			byte temp = gridInit [numofrows - 2][pitCol];
 			byte tempLoop = (byte) (pitCol - 1);
 			gridInit[numofrows - 2][pitCol] = 0;
@@ -96,7 +95,7 @@ public class kalahFunctions {
 						gridInit[numofrows - 1][tempLoop] = (byte) (gridInit[numofrows - 1][tempLoop] + 1);
 						direction = false;
 						if (checkEveryMove == true){
-							System.out.println("\n" + grid);
+							System.out.println("\n" + clonedGrid);
 						}
 						track = k;
 						lastPit = tempLoop;
@@ -112,7 +111,7 @@ public class kalahFunctions {
 				gridInit[numofrows - 2][tempLoop] = (byte) (gridInit[numofrows - 2][tempLoop] + 1);
 				direction = true;
 				if (checkEveryMove == true){
-					System.out.println("\n" + grid);
+					System.out.println("\n" + clonedGrid);
 				}
 				lastPit = tempLoop;
 				tempLoop--;
@@ -132,13 +131,7 @@ public class kalahFunctions {
 				gridInit [numofrows - 2][lastPit] = 0;
 				System.out.print("\nTAKE ALL TEH SCORES");
 			}
-				System.out.println("\n" + grid);
-				grid.grid = new byte[][] { 
-						
-						{0,9,2,0,3,3,3,0},
-						{0,3,3,3,3,3,3,0}
-						};
-	
+				System.out.println("\n" + clonedGrid);
 	}
 	
 	public boolean canPlace (kalahArrayClass grid , int pitRow, int pitCol){

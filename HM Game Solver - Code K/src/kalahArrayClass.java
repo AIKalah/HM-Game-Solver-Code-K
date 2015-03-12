@@ -42,7 +42,17 @@ public class kalahArrayClass {
 		}
 	
 	public kalahArrayClass clone(){
-		kalahArrayClass clonedGrid = new kalahArrayClass(this.grid, this.turn);
+		byte clonedGridInit[][] = new byte[][] { 
+				
+				{0,0,0,0,0,0,0,0},
+				{0,0,0,0,0,0,0,0}
+				};
+		
+		for(int i = 0; i < 2; i++){
+			clonedGridInit[i] = this.grid[i].clone();
+		}
+		
+		kalahArrayClass clonedGrid = new kalahArrayClass(clonedGridInit, this.turn);
 		return clonedGrid;
 	}
 }
