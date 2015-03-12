@@ -40,4 +40,9 @@ public class kalahArrayClass {
 		  
 		  return returnString;
 		}
+	
+	public kalahArrayClass clone(){
+		kalahArrayClass clonedGrid = new kalahArrayClass(this.grid, this.turn);
+		return clonedGrid;
+	}
 }
