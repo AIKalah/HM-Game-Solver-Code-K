@@ -20,8 +20,16 @@ public class KMain {
 		kalahFunctions functions = new kalahFunctions();
 		System.out.println(grid);
 		for (int i = 1; i < (numofcols - 1); i++){
-		functions.playerOnePlace(grid,1,i);
-		functions.playerTwoPlace(grid,0,i);
+			if (functions.canPlace(grid, 1, i)){
+				functions.playerOnePlace(grid,1,i);
+			}
 		}
+		System.out.println("\n\n Player 2 Test:\n");
+		for (int i = numofcols - 2; i >= 1; i--){
+			if (functions.canPlace(grid, 0, i)){
+				functions.playerTwoPlace(grid,0,i);
+			}
+		}
+	
 	}
 }

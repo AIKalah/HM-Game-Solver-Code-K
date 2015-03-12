@@ -13,7 +13,6 @@ public class kalahFunctions {
 		boolean direction = true; //true direction means on the players side of the board
 		byte gridInit [][];
 		
-		//for (int i = 1; i < (numofcols - 1); i++){
 			//choose the first one
 			gridInit = grid.grid;
 			byte temp = gridInit [numofrows - 1][pitCol];
@@ -72,10 +71,6 @@ public class kalahFunctions {
 						{0,9,2,0,3,3,3,0},
 						{0,3,3,3,3,3,3,0}
 						};
-				
-
-		//}
-		
 		
 	}
 	
@@ -85,7 +80,6 @@ public class kalahFunctions {
 		boolean direction = true; //true direction means on the players side of the board
 		byte gridInit [][];
 		
-		//for (int i = numofcols - 2; i >= 1; i--){
 			//choose the first one
 			gridInit = grid.grid;
 			byte temp = gridInit [numofrows - 2][pitCol];
@@ -144,13 +138,30 @@ public class kalahFunctions {
 						{0,9,2,0,3,3,3,0},
 						{0,3,3,3,3,3,3,0}
 						};
-				
-
-		//}
-		
+	
 	}
 	
-	public void placeOption (){
-		//place the option into linked list
+	public boolean canPlace (kalahArrayClass grid , int pitRow, int pitCol){
+		if (pitRow == 1){
+			if (grid.grid[1][pitCol] != 0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		else if (pitRow == 0){
+			if (grid.grid[0][pitCol] != 0){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			System.out.println("Row out of Bounds");
+			return false;
+		}
+
 	}
 }
