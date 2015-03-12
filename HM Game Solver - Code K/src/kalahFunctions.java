@@ -142,16 +142,8 @@ public class kalahFunctions {
 	}
 	
 	public boolean canPlace (kalahArrayClass grid , int pitRow, int pitCol){
-		if (pitRow == 1){
-			if (grid.grid[1][pitCol] != 0){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
-		else if (pitRow == 0){
-			if (grid.grid[0][pitCol] != 0){
+		if (pitRow == 0 || pitRow == 1){
+			if (grid.grid[pitRow][pitCol] != 0){
 				return true;
 			}
 			else{
