@@ -19,7 +19,9 @@ public class KMain {
 		
 		kalahFunctions functions = new kalahFunctions();
 		System.out.println(grid);
-		//functions.playerOneTurn(grid);
-		functions.playerTwoTurn(grid);
+		for (int i = 1; i < (numofcols - 1); i++){
+		functions.playerOnePlace(grid,1,i);
+		functions.playerTwoPlace(grid,0,i);
+		}
 	}
 }

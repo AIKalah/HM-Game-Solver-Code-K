@@ -7,18 +7,18 @@ public class kalahFunctions {
 	//public static byte currentseeds;
 	//public static byte currentPitIndex;
 	
-	public void playerOneTurn(kalahArrayClass grid){
+	public void playerOnePlace(kalahArrayClass grid, int pitRow, int pitCol){
 		int track = 0;
 		int lastPit = 0;
 		boolean direction = true; //true direction means on the players side of the board
 		byte gridInit [][];
 		
-		for (int i = 1; i < (numofcols - 1); i++){
+		//for (int i = 1; i < (numofcols - 1); i++){
 			//choose the first one
 			gridInit = grid.grid;
-			byte temp = gridInit [numofrows - 1][i];
-			byte tempLoop = (byte) (i + 1);
-			gridInit[numofrows - 1][i] = 0;
+			byte temp = gridInit [numofrows - 1][pitCol];
+			byte tempLoop = (byte) (pitCol + 1);
+			gridInit[numofrows - 1][pitCol] = 0;
 			for (int j = 0; j < temp ; j++ ){
 				if (tempLoop == (numofcols - 1)){
 					gridInit[numofrows - 1][tempLoop] = (byte) (gridInit[numofrows - 1][tempLoop] + 1);
@@ -69,27 +69,28 @@ public class kalahFunctions {
 				System.out.println("\n" + grid);
 				grid.grid = new byte[][] { 
 						
-						{0,3,3,3,3,3,3,0},
+						{0,9,2,0,3,3,3,0},
 						{0,3,3,3,3,3,3,0}
 						};
 				
 
-		}
+		//}
 		
 		
 	}
-	public void playerTwoTurn(kalahArrayClass grid){
+	
+	public void playerTwoPlace(kalahArrayClass grid, int pitRow, int pitCol){
 		int track = 0;
 		int lastPit = 0;
 		boolean direction = true; //true direction means on the players side of the board
 		byte gridInit [][];
 		
-		for (int i = numofcols - 2; i >= 1; i--){
+		//for (int i = numofcols - 2; i >= 1; i--){
 			//choose the first one
 			gridInit = grid.grid;
-			byte temp = gridInit [numofrows - 2][i];
-			byte tempLoop = (byte) (i - 1);
-			gridInit[numofrows - 2][i] = 0;
+			byte temp = gridInit [numofrows - 2][pitCol];
+			byte tempLoop = (byte) (pitCol - 1);
+			gridInit[numofrows - 2][pitCol] = 0;
 			for (int j = 0; j < temp ; j++ ){
 				if (tempLoop == 0){
 					gridInit[numofrows - 2][tempLoop] = (byte) (gridInit[numofrows - 2][tempLoop] + 1);
@@ -145,7 +146,11 @@ public class kalahFunctions {
 						};
 				
 
-		}
+		//}
 		
+	}
+	
+	public void placeOption (){
+		//place the option into linked list
 	}
 }
