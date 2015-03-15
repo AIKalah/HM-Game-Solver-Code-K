@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.LinkedList;
+
 
 public class KMain {
 	
@@ -18,18 +21,15 @@ public class KMain {
 	{
 		
 		kalahFunctions functions = new kalahFunctions();
+		
+		//Hash map to contain all the possible board layouts and their moves
+				HashMap<kalahArrayClass, LinkedList<Option>> allGrids = new HashMap<kalahArrayClass, LinkedList<Option>>();
+
+				//Hash map to contain all the possible board layouts contained in the first hash map to allow changes to the keys
+				HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys = new HashMap<kalahArrayClass,kalahArrayClass>();
+				
 		System.out.println(grid);
-		for (int i = 1; i < (numofcols - 1); i++){
-			if (functions.canPlace(grid, 1, i)){
-				functions.playerOnePlace(grid,1,i);
-			}
-		}
-		System.out.println("\n\n Player 2 Test:\n");
-		for (int i = numofcols - 2; i >= 1; i--){
-			if (functions.canPlace(grid, 0, i)){
-				functions.playerTwoPlace(grid,0,i);
-			}
-		}
+		functions.buildHash(allGrids, allGridsKeys, grid);
 	
 	}
 }

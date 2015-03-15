@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.LinkedList;
+
 
 public class kalahFunctions {
 	public static int numofrows = 2;
@@ -140,6 +143,7 @@ public class kalahFunctions {
 				return true;
 			}
 			else{
+				System.out.println("Pit empty");
 				return false;
 			}
 		}
@@ -148,5 +152,20 @@ public class kalahFunctions {
 			return false;
 		}
 
+	}
+	
+	/**
+	 * @param allGrids
+	 * @param allGridsKeys
+	 * 
+	 * Adds all possible moves from the starting grid to hash maps
+	 */
+	public void buildHash (HashMap<kalahArrayClass, LinkedList<Option>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid){
+		for (int i = 1; i < (numofcols - 1); i++){
+			if (this.canPlace(grid, 1, i)){
+				this.playerOnePlace(grid,1,i);
+			}
+		}
+		//fillHash(allGrids, allGridsKeys);
 	}
 }
