@@ -38,7 +38,7 @@ public class KMain {
 		System.out.println("\n\n\nPrint out from hashmap now:");
 		Iterator<kalahArrayClass> iterator = allGrids.keySet().iterator();
 		while (iterator.hasNext()){
-			System.out.println(iterator.next());
+			System.out.println("\n" + iterator.next());
 		}
 	
 	}
