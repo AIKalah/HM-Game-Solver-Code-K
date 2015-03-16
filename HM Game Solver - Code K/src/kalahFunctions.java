@@ -10,7 +10,7 @@ public class kalahFunctions {
 	//public static byte currentseeds;
 	//public static byte currentPitIndex;
 	
-	public void playerOnePlace(kalahArrayClass grid, int pitRow, int pitCol){
+	public void playerOnePlace(kalahArrayClass grid, int pitRow, int pitCol, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){
 		int track = 0;
 		int lastPit = 0;
 		boolean direction = true; //true direction means on the players side of the board
@@ -71,6 +71,18 @@ public class kalahFunctions {
 				System.out.print("\nTAKE ALL TEH SCORES");
 			}
 				System.out.println("\n" + clonedGrid);
+				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
+				if (allGrids.get(clonedGrid.grid) != null)
+				{
+					allGrids.get(grid).add(option);
+				}
+				else
+				{
+					allGrids.get(grid).add(option);
+					LinkedList<kalahOption> newGrid = new LinkedList<kalahOption>();
+					allGridsKeys.put(clonedGrid, clonedGrid);
+					allGrids.put(clonedGrid, newGrid);
+				}
 		
 	}
 	
@@ -160,10 +172,10 @@ public class kalahFunctions {
 	 * 
 	 * Adds all possible moves from the starting grid to hash maps
 	 */
-	public void buildHash (HashMap<kalahArrayClass, LinkedList<Option>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid){
+	public void buildHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid){
 		for (int i = 1; i < (numofcols - 1); i++){
 			if (this.canPlace(grid, 1, i)){
-				this.playerOnePlace(grid,1,i);
+				this.playerOnePlace(grid,1,i,allGrids,allGridsKeys);
 			}
 		}
 		//fillHash(allGrids, allGridsKeys);

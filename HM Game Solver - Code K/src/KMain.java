@@ -23,13 +23,17 @@ public class KMain {
 		kalahFunctions functions = new kalahFunctions();
 		
 		//Hash map to contain all the possible board layouts and their moves
-				HashMap<kalahArrayClass, LinkedList<Option>> allGrids = new HashMap<kalahArrayClass, LinkedList<Option>>();
+				HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids = new HashMap<kalahArrayClass, LinkedList<kalahOption>>();
 
 				//Hash map to contain all the possible board layouts contained in the first hash map to allow changes to the keys
 				HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys = new HashMap<kalahArrayClass,kalahArrayClass>();
 				
 		System.out.println(grid);
+		LinkedList<kalahOption> startGridList = new LinkedList<kalahOption>();
+		allGridsKeys.put(grid, grid);
+		allGrids.put(grid, startGridList);
 		functions.buildHash(allGrids, allGridsKeys, grid);
+		System.out.println("\n\n\nPrint out from hashmap now:");
 	
 	}
 }

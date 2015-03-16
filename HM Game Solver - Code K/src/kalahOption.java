@@ -1,9 +1,8 @@
-public class Option {
-	private gridArrayClass grid;
+
+public class kalahOption {
+	private kalahArrayClass grid;
 	private int rowOne;
-	private int rowTwo;
 	private int colOne;
-	private int colTwo;
 	
 	
 	/********************************************************************************************
@@ -15,15 +14,11 @@ public class Option {
 	 * 
 	 * Object to save the current grid and also the move that was taken to make the grid happen
 	 ********************************************************************************************/
-	public Option (gridArrayClass currentgrid, int row1, int col1, int row2, int col2){
+	public kalahOption (kalahArrayClass currentgrid, int row, int col){
 		setGrid (currentgrid);
-		setRowOne (row1);
-		setRowTwo (row2);
-		setColOne (col1);
-		setColTwo (col2);
+		setRowOne (row);
+		setColOne (col);
 	}
-
-
 
 	/*
 	 * 
@@ -32,61 +27,36 @@ public class Option {
 	 * 
 	 */
 
-	public gridArrayClass getGrid() {
+	public kalahArrayClass getGrid() {
 		return grid;
 	}
 
-
-	public void setGrid(gridArrayClass grid) {
+	public void setGrid(kalahArrayClass grid) {
 		this.grid = grid;
 	}
-
 
 	public int getRowOne() {
 		return rowOne;
 	}
 
-
 	public void setRowOne(int rowOne) {
 		this.rowOne = rowOne;
 	}
-
-
-	public int getRowTwo() {
-		return rowTwo;
-	}
-
-
-	public void setRowTwo(int rowTwo) {
-		this.rowTwo = rowTwo;
-	}
-
 
 	public int getColOne() {
 		return colOne;
 	}
 
-
 	public void setColOne(int colOne) {
 		this.colOne = colOne;
 	}
 
-
-	public int getColTwo() {
-		return colTwo;
-	}
-
-
-	public void setColTwo(int colTwo) {
-		this.colTwo = colTwo;
-	}
-	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
 		return "\n" + this.grid.toString() + ", " + this.rowOne + ", " 
-				+ this.rowTwo + ", " + this.colOne + ", " + this.colTwo;
+				+ this.colOne;
 	}
 }
