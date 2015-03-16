@@ -58,9 +58,13 @@ public class kalahFunctions {
 			}
 			
 			if (lastPit == numofcols - 1){
-				//Check if they can go again
-				//Add marker to object
+				//Player one gets to go again
 				System.out.print("\nI CAN GO AGAIN YAY!");
+				clonedGrid.setPlayerTwoTurn(false);
+			}
+			else{
+				//Turn proceeds to player two
+				clonedGrid.setPlayerTwoTurn(true);
 			}
 			if (gridInit [numofrows - 1][lastPit] == 1 && direction == true){
 				//Take all the scores if the last one player was empty
@@ -86,7 +90,7 @@ public class kalahFunctions {
 		
 	}
 	
-	public void playerTwoPlace(kalahArrayClass grid, int pitRow, int pitCol){
+	public void playerTwoPlace(kalahArrayClass grid, int pitRow, int pitCol, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){
 		int track = 0;
 		int lastPit = 0;
 		boolean direction = true; //true direction means on the players side of the board
@@ -134,9 +138,13 @@ public class kalahFunctions {
 			}
 			
 			if (lastPit == 0){
-				//Check if they can go again
-				//Add marker to object
+				//Player two gets to go again
 				System.out.print("\nI CAN GO AGAIN YAY!");
+				clonedGrid.setPlayerTwoTurn(true);
+			}
+			else{
+				//Turn proceeds to player one
+				clonedGrid.setPlayerTwoTurn(false);
 			}
 			if (gridInit [numofrows - 2][lastPit] == 1 && direction == true){
 				//Take all the scores if the last one player was empty
@@ -147,6 +155,18 @@ public class kalahFunctions {
 				System.out.print("\nTAKE ALL TEH SCORES");
 			}
 				System.out.println("\n" + clonedGrid);
+				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
+				if (allGrids.get(clonedGrid.grid) != null)
+				{
+					allGrids.get(grid).add(option);
+				}
+				else
+				{
+					allGrids.get(grid).add(option);
+					LinkedList<kalahOption> newGrid = new LinkedList<kalahOption>();
+					allGridsKeys.put(clonedGrid, clonedGrid);
+					allGrids.put(clonedGrid, newGrid);
+				}
 	}
 	
 	public boolean canPlace (kalahArrayClass grid , int pitRow, int pitCol){

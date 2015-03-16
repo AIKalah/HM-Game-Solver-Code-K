@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -33,7 +34,12 @@ public class KMain {
 		allGridsKeys.put(grid, grid);
 		allGrids.put(grid, startGridList);
 		functions.buildHash(allGrids, allGridsKeys, grid);
+		
 		System.out.println("\n\n\nPrint out from hashmap now:");
+		Iterator<kalahArrayClass> iterator = allGrids.keySet().iterator();
+		while (iterator.hasNext()){
+			System.out.println(iterator.next());
+		}
 	
 	}
 }
