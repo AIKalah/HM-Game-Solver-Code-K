@@ -2,18 +2,38 @@
 public class kalahArrayClass {
 	byte grid[][];
 	Boolean playerTwoTurn;
+	boolean gameOver;
+	boolean processed;
 	
-	public kalahArrayClass(byte[][] gridInit, boolean playerTurn) {
+	public kalahArrayClass(byte[][] gridInit, boolean playerTurn, boolean gameOver, boolean processed) {
 		grid = gridInit;
 		setPlayerTwoTurn(playerTurn);
+		setGameOver(gameOver);
+		setProcessed(processed);
 	}
 	
 	public boolean isPlayerTwoTurn() {
-		return playerTwoTurn.booleanValue();
+		return this.playerTwoTurn.booleanValue();
 	}
 	
 	public void setPlayerTwoTurn(boolean turn) {
 		this.playerTwoTurn = turn;
+	}
+	
+	public boolean isGameOver() {
+		return this.gameOver;
+	}
+	
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+	
+	public boolean isProcessed() {
+		return this.processed;
+	}
+	
+	public void setProcessed(boolean processed) {
+		this.processed = processed;
 	}
 	
 	/*
@@ -102,7 +122,7 @@ public class kalahArrayClass {
 			clonedGridInit[i] = this.grid[i].clone();
 		}
 		
-		kalahArrayClass clonedGrid = new kalahArrayClass(clonedGridInit, this.playerTwoTurn);
+		kalahArrayClass clonedGrid = new kalahArrayClass(clonedGridInit, this.playerTwoTurn, this.gameOver, this.processed);
 		return clonedGrid;
 	}
 }

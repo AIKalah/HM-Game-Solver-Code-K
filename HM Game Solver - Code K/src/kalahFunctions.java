@@ -10,6 +10,9 @@ public class kalahFunctions {
 	//public static byte currentseeds;
 	//public static byte currentPitIndex;
 	
+	private int doneCount = 0;
+	private int gridArrayLength = 1;
+	
 	public void playerOnePlace(kalahArrayClass grid, int pitRow, int pitCol, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){
 		int track = 0;
 		int lastPit = 0;
@@ -198,6 +201,93 @@ public class kalahFunctions {
 				this.playerOnePlace(grid,1,i,allGrids,allGridsKeys);
 			}
 		}
-		//fillHash(allGrids, allGridsKeys);
+		fillHash(allGrids, allGridsKeys);
+	}
+	
+	/***********************************************
+	 * @param allGrids
+	 * @param allGridsKeys
+	 * 
+	 * Adds all possible board states to the hash maps, looping until complete
+	 ***********************************************/
+	@SuppressWarnings("unchecked")
+	public void fillHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){         
+		while (this.doneCount < this.gridArrayLength){
+			System.out.println(this.doneCount + " is less than " + this.gridArrayLength);
+			Object[] gridArray = allGrids.keySet().toArray();
+			this.gridArrayLength = gridArray.length;
+			this.doneCount = 0;
+			for(int i = 0; i < this.gridArrayLength; i++) {
+			
+				if (allGrids.get(gridArray[i]).peekFirst() == null)
+				{
+				
+					boolean placed = false;
+					//playerOne
+					kalahArrayClass grid = allGridsKeys.get(gridArray[i]);
+					if (grid.isPlayerTwoTurn() == false){
+						for (int j = 1; j < (numofcols - 1); j++){
+							if (this.canPlace(grid, 1, j)){
+								this.playerOnePlace(grid,1,j,allGrids,allGridsKeys);
+								placed = true;
+							}
+						}
+					}
+					//playerTwo
+					else{
+						for (int j = 1; j < (numofcols - 1); j++){
+							if (this.canPlace(grid, 0, j)){
+								this.playerTwoPlace(grid,1,j,allGrids,allGridsKeys);
+								placed = true;
+							}
+						}
+					}
+					if (!placed)
+					{
+						
+						kalahOption option = new kalahOption((kalahArrayClass)gridArray[i],0,0);
+						allGrids.get(gridArray[i]).add(option);
+						//Check other player's side before declaring game over
+						boolean gameOver = true;
+						//playerOne
+						if (grid.isPlayerTwoTurn() == false){
+							for (int k = 1; k < (numofcols - 1); k++){
+								if (this.canPlace(grid, 0, k)){
+									gameOver = false;
+								}
+							}
+						}
+						//playerTwo
+						else{
+							for (int k = 1; k < (numofcols - 1); k++){
+								if (this.canPlace(grid, 1, k)){
+									gameOver = false;
+								}
+							}
+						}
+						//Not sure about this here
+						//Before processed indicated that a grid was a done processing
+						//This would occur here for a game over board or later with processhash
+						//Before "win" would say if it was a win or a loss, now that is determined by score
+						//so I have it where win is now gameOver so we know it's a final board
+						//I suppose that can be determined by a lack of children but I'll leave it for now?
+						if (gameOver == true) {
+							((kalahArrayClass) gridArray[i]).setGameOver(true);
+							((kalahArrayClass) gridArray[i]).setProcessed(true);
+						}
+						else {
+							((kalahArrayClass) gridArray[i]).setGameOver(false);
+							((kalahArrayClass) gridArray[i]).setProcessed(false);
+						}
+					}
+				}
+				else
+				{
+					//System.out.println(i + " is not null");
+					this.doneCount++;
+				}
+			}
+		}
+		//processHash(allGrids, allGridsKeys);
 	}
 }

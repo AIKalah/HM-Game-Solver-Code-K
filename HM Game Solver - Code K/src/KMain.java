@@ -11,7 +11,7 @@ public class KMain {
 	};
 
 	
-	public static kalahArrayClass grid = new kalahArrayClass(gridInit, false);
+	public static kalahArrayClass grid = new kalahArrayClass(gridInit, false, false, false);
 	
 	public static int numofrows = 2;
 	public static int numofcols = 8; 
