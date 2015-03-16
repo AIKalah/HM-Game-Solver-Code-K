@@ -34,6 +34,10 @@ public class KMain {
 		allGrids.put(grid, startGridList);
 		functions.buildHash(allGrids, allGridsKeys, grid);
 		System.out.println("\n\n\nPrint out from hashmap now:");
+		for (int i = 0; i < allGrids.size() - 1;i++){
+			System.out.print(allGrids.get(grid).get(i).getGrid() + "\n\n");
+		}
+		
 	
 	}
 }
