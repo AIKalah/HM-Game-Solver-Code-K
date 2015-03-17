@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -23,10 +24,10 @@ public class KMain {
 		kalahFunctions functions = new kalahFunctions();
 		
 		//Hash map to contain all the possible board layouts and their moves
-				HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids = new HashMap<kalahArrayClass, LinkedList<kalahOption>>();
+		HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids = new HashMap<kalahArrayClass, LinkedList<kalahOption>>();
 
-				//Hash map to contain all the possible board layouts contained in the first hash map to allow changes to the keys
-				HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys = new HashMap<kalahArrayClass,kalahArrayClass>();
+		//Hash map to contain all the possible board layouts contained in the first hash map to allow changes to the keys
+		HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys = new HashMap<kalahArrayClass,kalahArrayClass>();
 				
 		System.out.println(grid);
 		LinkedList<kalahOption> startGridList = new LinkedList<kalahOption>();
@@ -35,10 +36,11 @@ public class KMain {
 		functions.buildHash(allGrids, allGridsKeys, grid);
 		
 		System.out.println("\n\n\nPrint out from hashmap now:");
-		for (int i = 0; i < allGrids.size() - 1;i++){
-			System.out.print(allGrids.get(grid).get(i).getGrid() + "\n\n");
+		Iterator<kalahArrayClass> iterator = allGrids.keySet().iterator();
+		while (iterator.hasNext()) {
+		   System.out.println("\n" + iterator.next());
 		}
-		
+		System.out.println("\nDone printing Hashmap");
 	
 	}
 }

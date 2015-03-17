@@ -77,6 +77,22 @@ public class kalahFunctions {
 				gridInit [numofrows - 2][lastPit] = 0;
 				//System.out.print("\nTAKE ALL TEH SCORES");
 			}
+			
+			int sumPlayerone = 0;
+			int sumPlayertwo = 0;
+			for (int i = 1; i < numofcols - 1;i++){
+				sumPlayerone += gridInit [numofrows - 1][i];
+			}
+			if (sumPlayerone == 0){
+				for (int i = 1; i < numofcols - 1;i++){
+					sumPlayertwo += gridInit [numofrows - 2][i];
+					gridInit [numofrows - 2][i] = 0;
+					
+				}
+				gridInit [0][0] = (byte) sumPlayertwo;
+				gridInit [1][0] = (byte) sumPlayertwo;
+			}
+			
 				//System.out.println("\n" + clonedGrid);
 				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
 				if (allGrids.get(clonedGrid.getGrid()) != null)
@@ -157,6 +173,21 @@ public class kalahFunctions {
 				gridInit [numofrows - 2][lastPit] = 0;
 				//System.out.print("\nTAKE ALL TEH SCORES");
 			}
+			
+			int sumPlayerone = 0;
+			int sumPlayertwo = 0;
+			for (int i = 1; i < numofcols - 1;i++){
+				sumPlayertwo += gridInit [numofrows - 2][i];
+			}
+			if (sumPlayertwo == 0){
+				for (int i = 1; i < numofcols - 1;i++){
+					sumPlayerone += gridInit [numofrows - 1][i];
+					gridInit [numofrows - 1][i] = 0;
+				}
+				gridInit [0][numofcols - 1] = (byte) sumPlayerone;
+				gridInit [1][numofcols - 1] = (byte) sumPlayerone;
+			}
+			
 				//System.out.println("\n" + clonedGrid);
 				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
 				if (allGrids.get(clonedGrid.getGrid()) != null)
@@ -216,13 +247,10 @@ public class kalahFunctions {
 			System.out.println(this.doneCount + " is less than " + this.gridArrayLength);
 			Object[] gridArray = allGrids.keySet().toArray();
 			this.gridArrayLength = gridArray.length;
-			System.out.println("gridArrayLength is now: " + this.gridArrayLength);
 			this.doneCount = 0;
 			for(int i = 0; i < this.gridArrayLength; i++) {
-				System.out.println("About to access gridArray at " + i + " with gridArrayLength of " + this.gridArrayLength);
 				if (allGrids.get(gridArray[i]).peekFirst() == null)
 				{
-				System.out.println("Accessed");
 					boolean placed = false;
 					//playerOne
 					kalahArrayClass grid = allGridsKeys.get(gridArray[i]);
@@ -245,34 +273,8 @@ public class kalahFunctions {
 					}
 					if (!placed)
 					{
-						
 						kalahOption option = new kalahOption((kalahArrayClass)gridArray[i],0,0);
 						allGrids.get(gridArray[i]).add(option);
-						//Empty board, other player's side before declaring game over
-						byte addedScore = 0;
-						//playerOne's side is empty
-						if (grid.isPlayerTwoTurn() == false){
-							//Add up scores from playerTwo's pits and empty them
-							for (int k = 1; k < (numofcols - 1); k++){
-								addedScore = (byte) (addedScore + grid.getGridValue(0,k));
-								grid.setGridValue(0,k,(byte) 0);
-							}
-							//Add the score to to playerTwo's score
-							grid.setGridValue(0,0, (byte) (grid.getGridValue(0,0) + addedScore));
-							grid.setGridValue(1,0, (byte) (grid.getGridValue(1,0) + addedScore));
-						}
-						//playerTwo's side is empty
-						else{
-							//Add up scores from playerOne's pits and empty them
-							for (int k = 1; k < (numofcols - 1); k++){
-								addedScore = (byte) (addedScore + grid.getGridValue(1,k));
-								grid.setGridValue(1,k,(byte) 0);
-							}
-							//Add the score to to playerOne's score
-							grid.setGridValue(0,numofcols, (byte) (grid.getGridValue(0,numofcols) + addedScore));
-							grid.setGridValue(1,numofcols, (byte) (grid.getGridValue(1,numofcols) + addedScore));
-						}
-						//Game is over, flagging this board as such
 						((kalahArrayClass) gridArray[i]).setGameOver(true);
 						((kalahArrayClass) gridArray[i]).setProcessed(true);
 					}
