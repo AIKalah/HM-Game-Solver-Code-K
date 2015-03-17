@@ -62,7 +62,7 @@ public class kalahFunctions {
 			
 			if (lastPit == numofcols - 1){
 				//Player one gets to go again
-				System.out.print("\nI CAN GO AGAIN YAY!");
+				//System.out.print("\nI CAN GO AGAIN YAY!");
 				clonedGrid.setPlayerTwoTurn(false);
 			}
 			else{
@@ -75,9 +75,9 @@ public class kalahFunctions {
 				gridInit [numofrows - 2][numofcols - 1] += (byte) (gridInit [numofrows - 1][lastPit] + gridInit [numofrows - 2][lastPit]);
 				gridInit [numofrows - 1][lastPit] = 0;
 				gridInit [numofrows - 2][lastPit] = 0;
-				System.out.print("\nTAKE ALL TEH SCORES");
+				//System.out.print("\nTAKE ALL TEH SCORES");
 			}
-				System.out.println("\n" + clonedGrid);
+				//System.out.println("\n" + clonedGrid);
 				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
 				if (allGrids.get(clonedGrid.grid) != null)
 				{
@@ -142,7 +142,7 @@ public class kalahFunctions {
 			
 			if (lastPit == 0){
 				//Player two gets to go again
-				System.out.print("\nI CAN GO AGAIN YAY!");
+				//System.out.print("\nI CAN GO AGAIN YAY!");
 				clonedGrid.setPlayerTwoTurn(true);
 			}
 			else{
@@ -155,9 +155,9 @@ public class kalahFunctions {
 				gridInit [numofrows - 2][0] += (byte) (gridInit [numofrows - 1][lastPit] + gridInit [numofrows - 2][lastPit]);
 				gridInit [numofrows - 1][lastPit] = 0;
 				gridInit [numofrows - 2][lastPit] = 0;
-				System.out.print("\nTAKE ALL TEH SCORES");
+				//System.out.print("\nTAKE ALL TEH SCORES");
 			}
-				System.out.println("\n" + clonedGrid);
+				//System.out.println("\n" + clonedGrid);
 				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
 				if (allGrids.get(clonedGrid.grid) != null)
 				{
@@ -178,12 +178,12 @@ public class kalahFunctions {
 				return true;
 			}
 			else{
-				System.out.println("Pit empty");
+				//System.out.println("Pit empty");
 				return false;
 			}
 		}
 		else{
-			System.out.println("Row out of Bounds");
+			//System.out.println("Row out of Bounds");
 			return false;
 		}
 
@@ -247,38 +247,33 @@ public class kalahFunctions {
 						
 						kalahOption option = new kalahOption((kalahArrayClass)gridArray[i],0,0);
 						allGrids.get(gridArray[i]).add(option);
-						//Check other player's side before declaring game over
-						boolean gameOver = true;
-						//playerOne
+						//Empty board, other player's side before declaring game over
+						byte addedScore = 0;
+						//playerOne's side is empty
 						if (grid.isPlayerTwoTurn() == false){
+							//Add up scores from playerTwo's pits and empty them
 							for (int k = 1; k < (numofcols - 1); k++){
-								if (this.canPlace(grid, 0, k)){
-									gameOver = false;
-								}
+								addedScore = (byte) (addedScore + grid.grid[0][k]);
+								grid.grid[0][k] = 0;
 							}
+							//Add the score to to playerTwo's score
+							grid.grid[0][0] = (byte) (grid.grid[0][0] + addedScore);
+							grid.grid[1][0] = (byte) (grid.grid[1][0] + addedScore);
 						}
-						//playerTwo
+						//playerTwo's side is empty
 						else{
+							//Add up scores from playerOne's pits and empty them
 							for (int k = 1; k < (numofcols - 1); k++){
-								if (this.canPlace(grid, 1, k)){
-									gameOver = false;
-								}
+								addedScore = (byte) (addedScore + grid.grid[1][k]);
+								grid.grid[1][k] = 0;
 							}
+							//Add the score to to playerOne's score
+							grid.grid[0][numofcols] = (byte) (grid.grid[0][numofcols] + addedScore);
+							grid.grid[1][numofcols] = (byte) (grid.grid[1][numofcols] + addedScore);
 						}
-						//Not sure about this here
-						//Before processed indicated that a grid was a done processing
-						//This would occur here for a game over board or later with processhash
-						//Before "win" would say if it was a win or a loss, now that is determined by score
-						//so I have it where win is now gameOver so we know it's a final board
-						//I suppose that can be determined by a lack of children but I'll leave it for now?
-						if (gameOver == true) {
-							((kalahArrayClass) gridArray[i]).setGameOver(true);
-							((kalahArrayClass) gridArray[i]).setProcessed(true);
-						}
-						else {
-							((kalahArrayClass) gridArray[i]).setGameOver(false);
-							((kalahArrayClass) gridArray[i]).setProcessed(false);
-						}
+						//Game is over, flagging this board as such
+						((kalahArrayClass) gridArray[i]).setGameOver(true);
+						((kalahArrayClass) gridArray[i]).setProcessed(true);
 					}
 				}
 				else
