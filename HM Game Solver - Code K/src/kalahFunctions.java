@@ -69,7 +69,7 @@ public class kalahFunctions {
 				//Turn proceeds to player two
 				clonedGrid.setPlayerTwoTurn(true);
 			}
-			if (gridInit [numofrows - 1][lastPit] == 1 && direction == true){
+			if (gridInit [numofrows - 2][lastPit] != 0 && gridInit [numofrows - 1][lastPit] == 1 && direction == true){
 				//Take all the scores if the last one player was empty
 				gridInit [numofrows - 1][numofcols - 1] += (byte) (gridInit [numofrows - 1][lastPit] + gridInit [numofrows - 2][lastPit]);
 				gridInit [numofrows - 2][numofcols - 1] += (byte) (gridInit [numofrows - 1][lastPit] + gridInit [numofrows - 2][lastPit]);
@@ -89,8 +89,8 @@ public class kalahFunctions {
 					gridInit [numofrows - 2][i] = 0;
 					
 				}
-				gridInit [0][0] = (byte) sumPlayertwo;
-				gridInit [1][0] = (byte) sumPlayertwo;
+				gridInit [0][0] += (byte) sumPlayertwo;
+				gridInit [1][0] += (byte) sumPlayertwo;
 			}
 			
 				//System.out.println("\n" + clonedGrid);
@@ -165,7 +165,7 @@ public class kalahFunctions {
 				//Turn proceeds to player one
 				clonedGrid.setPlayerTwoTurn(false);
 			}
-			if (gridInit [numofrows - 2][lastPit] == 1 && direction == true){
+			if (gridInit [numofrows - 1][lastPit] != 0 && gridInit [numofrows - 2][lastPit] == 1 && direction == true){
 				//Take all the scores if the last one player was empty
 				gridInit [numofrows - 1][0] += (byte) (gridInit [numofrows - 1][lastPit] + gridInit [numofrows - 2][lastPit]);
 				gridInit [numofrows - 2][0] += (byte) (gridInit [numofrows - 1][lastPit] + gridInit [numofrows - 2][lastPit]);
@@ -184,8 +184,8 @@ public class kalahFunctions {
 					sumPlayerone += gridInit [numofrows - 1][i];
 					gridInit [numofrows - 1][i] = 0;
 				}
-				gridInit [0][numofcols - 1] = (byte) sumPlayerone;
-				gridInit [1][numofcols - 1] = (byte) sumPlayerone;
+				gridInit [0][numofcols - 1] += (byte) sumPlayerone;
+				gridInit [1][numofcols - 1] += (byte) sumPlayerone;
 			}
 			
 				//System.out.println("\n" + clonedGrid);

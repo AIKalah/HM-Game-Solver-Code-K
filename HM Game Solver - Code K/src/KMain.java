@@ -7,8 +7,8 @@ public class KMain {
 	
 	public static byte [][] gridInit = new byte[][] { 
 	
-	{0,3,3,0,3,3,3,0},
-	{0,3,3,0,3,3,3,0}
+	{0,1,1,0,3,3,3,0},
+	{0,1,1,0,3,3,3,0}
 	};
 
 	
