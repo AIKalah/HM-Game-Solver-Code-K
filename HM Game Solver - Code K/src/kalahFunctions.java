@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class kalahFunctions {
 	public static int numofrows = 2;
-	public static int numofcols = 8; 
+	public static int numofcols = 4; 
 	public static int numofseeds = 3;
 	private boolean checkEveryMove = false;
 	//public static byte currentseeds;
@@ -22,7 +22,7 @@ public class kalahFunctions {
 		
 			//choose the first one
 			clonedGrid = grid.clone();
-			gridInit = clonedGrid.grid;
+			gridInit = clonedGrid.getGrid();
 			byte temp = gridInit [numofrows - 1][pitCol];
 			byte tempLoop = (byte) (pitCol + 1);
 			gridInit[numofrows - 1][pitCol] = 0;
@@ -79,7 +79,7 @@ public class kalahFunctions {
 			}
 				//System.out.println("\n" + clonedGrid);
 				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
-				if (allGrids.get(clonedGrid.grid) != null)
+				if (allGrids.get(clonedGrid.getGrid()) != null)
 				{
 					allGrids.get(grid).add(option);
 				}
@@ -102,7 +102,7 @@ public class kalahFunctions {
 		
 			//choose the first one
 			clonedGrid = grid.clone();
-			gridInit = clonedGrid.grid;
+			gridInit = clonedGrid.getGrid();
 			byte temp = gridInit [numofrows - 2][pitCol];
 			byte tempLoop = (byte) (pitCol - 1);
 			gridInit[numofrows - 2][pitCol] = 0;
@@ -159,7 +159,7 @@ public class kalahFunctions {
 			}
 				//System.out.println("\n" + clonedGrid);
 				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
-				if (allGrids.get(clonedGrid.grid) != null)
+				if (allGrids.get(clonedGrid.getGrid()) != null)
 				{
 					allGrids.get(grid).add(option);
 				}
@@ -174,7 +174,7 @@ public class kalahFunctions {
 	
 	public boolean canPlace (kalahArrayClass grid , int pitRow, int pitCol){
 		if (pitRow == 0 || pitRow == 1){
-			if (grid.grid[pitRow][pitCol] != 0){
+			if (grid.getGridValue(pitRow,pitCol) != 0){
 				return true;
 			}
 			else{
@@ -216,12 +216,13 @@ public class kalahFunctions {
 			System.out.println(this.doneCount + " is less than " + this.gridArrayLength);
 			Object[] gridArray = allGrids.keySet().toArray();
 			this.gridArrayLength = gridArray.length;
+			System.out.println("gridArrayLength is now: " + this.gridArrayLength);
 			this.doneCount = 0;
 			for(int i = 0; i < this.gridArrayLength; i++) {
-			
+				System.out.println("About to access gridArray at " + i + " with gridArrayLength of " + this.gridArrayLength);
 				if (allGrids.get(gridArray[i]).peekFirst() == null)
 				{
-				
+				System.out.println("Accessed");
 					boolean placed = false;
 					//playerOne
 					kalahArrayClass grid = allGridsKeys.get(gridArray[i]);
@@ -253,23 +254,23 @@ public class kalahFunctions {
 						if (grid.isPlayerTwoTurn() == false){
 							//Add up scores from playerTwo's pits and empty them
 							for (int k = 1; k < (numofcols - 1); k++){
-								addedScore = (byte) (addedScore + grid.grid[0][k]);
-								grid.grid[0][k] = 0;
+								addedScore = (byte) (addedScore + grid.getGridValue(0,k));
+								grid.setGridValue(0,k,(byte) 0);
 							}
 							//Add the score to to playerTwo's score
-							grid.grid[0][0] = (byte) (grid.grid[0][0] + addedScore);
-							grid.grid[1][0] = (byte) (grid.grid[1][0] + addedScore);
+							grid.setGridValue(0,0, (byte) (grid.getGridValue(0,0) + addedScore));
+							grid.setGridValue(1,0, (byte) (grid.getGridValue(1,0) + addedScore));
 						}
 						//playerTwo's side is empty
 						else{
 							//Add up scores from playerOne's pits and empty them
 							for (int k = 1; k < (numofcols - 1); k++){
-								addedScore = (byte) (addedScore + grid.grid[1][k]);
-								grid.grid[1][k] = 0;
+								addedScore = (byte) (addedScore + grid.getGridValue(1,k));
+								grid.setGridValue(1,k,(byte) 0);
 							}
 							//Add the score to to playerOne's score
-							grid.grid[0][numofcols] = (byte) (grid.grid[0][numofcols] + addedScore);
-							grid.grid[1][numofcols] = (byte) (grid.grid[1][numofcols] + addedScore);
+							grid.setGridValue(0,numofcols, (byte) (grid.getGridValue(0,numofcols) + addedScore));
+							grid.setGridValue(1,numofcols, (byte) (grid.getGridValue(1,numofcols) + addedScore));
 						}
 						//Game is over, flagging this board as such
 						((kalahArrayClass) gridArray[i]).setGameOver(true);

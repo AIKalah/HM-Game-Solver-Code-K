@@ -1,6 +1,6 @@
 
 public class kalahArrayClass {
-	byte grid[][];
+	private byte grid[][];
 	Boolean playerTwoTurn;
 	boolean gameOver;
 	boolean processed;
@@ -12,6 +12,22 @@ public class kalahArrayClass {
 		setProcessed(processed);
 	}
 	
+	public byte[][] getGrid() {
+		return grid;
+	}
+
+	public void setGrid(byte[][] grid) {
+		this.grid = grid;
+	}
+	
+	public byte getGridValue(int row, int col){
+		return this.grid[row][col];
+	}
+	
+	public void setGridValue(int row, int col, byte value){
+		this.grid[row][col] = value;
+	}
+
 	public boolean isPlayerTwoTurn() {
 		return this.playerTwoTurn.booleanValue();
 	}
