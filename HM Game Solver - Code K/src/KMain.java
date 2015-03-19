@@ -63,7 +63,13 @@ public class KMain {
 						seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
 					}
 					grid2 = allGrids.get(grid2).get(0).getGrid();
-					turn = turn*-1;
+					if (grid2.isPlayerTwoTurn() == false){
+						
+					}
+					else {
+						turn = turn*-1;
+					}
+					
 					
 				}
 				else {
@@ -77,7 +83,16 @@ public class KMain {
 						seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
 					}
 					grid2 = allGrids.get(grid2).get(0).getGrid();
-					turn = turn*-1;
+					if (grid2.isPlayerTwoTurn()){
+						
+					}
+					else {
+						turn = turn*-1;
+					}
+					
+					
+				}
+				else {
 					
 					
 				}
