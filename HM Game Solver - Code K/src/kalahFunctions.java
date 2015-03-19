@@ -85,6 +85,9 @@ public class kalahFunctions {
 			for (int i = 1; i < numofcols - 1;i++){
 				sumPlayerone += gridInit [numofrows - 1][i];
 			}
+			for (int i = 1; i < numofcols - 1;i++){
+				sumPlayertwo += gridInit [numofrows - 2][i];
+			}
 			if (sumPlayerone == 0){
 				for (int i = 1; i < numofcols - 1;i++){
 					sumPlayertwo += gridInit [numofrows - 2][i];
@@ -96,7 +99,17 @@ public class kalahFunctions {
 				clonedGrid.setGameOver(true);
 				clonedGrid.setProcessed(true);
 			}
-			
+			else if (sumPlayertwo == 0){
+				for (int i = 1; i < numofcols - 1;i++){
+					sumPlayerone += gridInit [numofrows - 1][i];
+					gridInit [numofrows - 1][i] = 0;
+				}
+				gridInit [0][numofcols - 1] += (byte) sumPlayerone;
+				gridInit [1][numofcols - 1] += (byte) sumPlayerone;
+				clonedGrid.setGameOver(true);
+				clonedGrid.setProcessed(true);
+			}
+
 				//System.out.println("\n" + clonedGrid);
 				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
 				if (allGrids.get(clonedGrid.getGrid()) != null)
@@ -183,6 +196,9 @@ public class kalahFunctions {
 			for (int i = 1; i < numofcols - 1;i++){
 				sumPlayertwo += gridInit [numofrows - 2][i];
 			}
+			for (int i = 1; i < numofcols - 1;i++){
+				sumPlayerone += gridInit [numofrows - 1][i];
+			}
 			if (sumPlayertwo == 0){
 				for (int i = 1; i < numofcols - 1;i++){
 					sumPlayerone += gridInit [numofrows - 1][i];
@@ -190,6 +206,17 @@ public class kalahFunctions {
 				}
 				gridInit [0][numofcols - 1] += (byte) sumPlayerone;
 				gridInit [1][numofcols - 1] += (byte) sumPlayerone;
+				clonedGrid.setGameOver(true);
+				clonedGrid.setProcessed(true);
+			}
+			else if (sumPlayerone == 0){
+				for (int i = 1; i < numofcols - 1;i++){
+					sumPlayertwo += gridInit [numofrows - 2][i];
+					gridInit [numofrows - 2][i] = 0;
+					
+				}
+				gridInit [0][0] += (byte) sumPlayertwo;
+				gridInit [1][0] += (byte) sumPlayertwo;
 				clonedGrid.setGameOver(true);
 				clonedGrid.setProcessed(true);
 			}
