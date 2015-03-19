@@ -246,8 +246,8 @@ public class kalahFunctions {
 	@SuppressWarnings("unchecked")
 	public void fillHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){         
 		while (this.doneCount < this.gridArrayLength){
-			System.out.println(this.doneCount + " is less than " + this.gridArrayLength);
-			System.out.println("\nFree Memory: "+ (runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory()))/1024 );
+			System.out.println("\n" + this.doneCount + " is less than " + this.gridArrayLength);
+			System.out.println("Free Memory: "+ (runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory()))/1024 );
 			Long freeUsage = runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory())/1024;
 			if (freeUsage < 1200000){
 				System.gc();
@@ -299,4 +299,70 @@ public class kalahFunctions {
 		}
 		//processHash(allGrids, allGridsKeys);
 	}
+	
+	/***********************************************
+	 * @param allGrids
+	 * @param allGridsKeys
+	 * 
+	 * Parses the hash maps to find winning boards, count children and determine win ratios
+	 ***********************************************/
+	public void processHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){
+		System.out.println("Processing Hashes");
+		Object[] gridArray = allGrids.keySet().toArray();
+		this.gridArrayLength = gridArray.length;
+		int totalProcessed = 0;
+		while (totalProcessed < gridArray.length){
+			totalProcessed = 0;
+			for(int i = 0; i < this.gridArrayLength; i++) {
+				if (i % 10000 == 0){
+					System.out.println("Processing " + (i + 1) + " of " + gridArray.length + " keys/grids.");
+				}
+				if (!allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed()){
+					LinkedList<kalahOption> keyGridList = allGrids.get(gridArray[i]);
+					int winCount = 0;
+					int processedCount = 0;
+					long childrenCount = 0;
+					for (int j = 0; j < keyGridList.size(); j++)
+					{
+						if(allGridsKeys.get(keyGridList.get(j).getGrid()).isProcessed()){
+							keyGridList.get(j).getGrid().setProcessed(true);
+							processedCount++;
+							if(keyGridList.get(j).getGrid().getWin() != allGridsKeys.get(keyGridList.get(j).getGrid()).getWin()){
+								keyGridList.get(j).getGrid().setWin(allGridsKeys.get(keyGridList.get(j).getGrid()).getWin());
+							}
+							if(keyGridList.get(j).getGrid().getWinningRatio() != allGridsKeys.get(keyGridList.get(j).getGrid()).getWinningRatio()){
+								keyGridList.get(j).getGrid().setWinningRatio(allGridsKeys.get(keyGridList.get(j).getGrid()).getWinningRatio());
+							}
+							if(keyGridList.get(j).getGrid().getTotalChildren() != allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren()){
+								keyGridList.get(j).getGrid().setTotalChildren(allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren());
+							}
+							if (keyGridList.get(j).getGrid().getWin()){
+								winCount++;
+							}
+							childrenCount += allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren() + 1;
+						}
+					}
+					if (processedCount == keyGridList.size()){
+						if (winCount == keyGridList.size()){
+							allGridsKeys.get(((gridArrayClass) gridArray[i])).setWin(false);
+						}
+						else{
+							allGridsKeys.get(((gridArrayClass) gridArray[i])).setWin(true);
+						}
+						allGridsKeys.get(((gridArrayClass) gridArray[i])).setProcessed(true);
+						allGridsKeys.get(((gridArrayClass) gridArray[i])).setWinningRatio((float)winCount/(float)keyGridList.size());
+						allGridsKeys.get(((gridArrayClass) gridArray[i])).setTotalChildren(childrenCount);
+					}
+					else{
+						allGridsKeys.get(((gridArrayClass) gridArray[i])).setProcessed(false);
+					}
+				}
+				else{
+					totalProcessed++;
+				}
+			}
+			System.out.println("Total processed: " + totalProcessed + ", Size: " + gridArray.length);
+		}
+	}
+	
 }

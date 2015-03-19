@@ -52,6 +52,18 @@ public class kalahArrayClass {
 		this.processed = processed;
 	}
 	
+	public byte getPlayerOneScore(){
+		return this.grid[0][grid[0].length];
+	}
+	
+	public byte getPlayerTwoScore(){
+		return this.grid[0][0];
+	}
+	
+	public byte getScoreDifference(){
+		return (byte) (this.grid[0][grid[0].length] - this.grid[0][0]);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
