@@ -4,6 +4,8 @@ public class kalahArrayClass {
 	Boolean playerTwoTurn;
 	boolean gameOver;
 	boolean processed;
+	float averageScore;
+	long totalChildren;
 	
 	public kalahArrayClass(byte[][] gridInit, boolean playerTurn, boolean gameOver, boolean processed) {
 		grid = gridInit;
@@ -62,6 +64,22 @@ public class kalahArrayClass {
 	
 	public byte getScoreDifference(){
 		return (byte) (this.grid[0][grid[0].length] - this.grid[0][0]);
+	}
+	
+	public float getAverageScore() {
+		return averageScore;
+	}
+
+	public void setAverageScore(float averageScore) {
+		this.averageScore = averageScore;
+	}
+	
+	public long getTotalChildren() {
+		return totalChildren;
+	}
+
+	public void setTotalChildren(long totalChildren) {
+		this.totalChildren = totalChildren;
 	}
 	
 	/*

@@ -297,7 +297,7 @@ public class kalahFunctions {
 				}
 			}
 		}
-		//processHash(allGrids, allGridsKeys);
+		processHash(allGrids, allGridsKeys);
 	}
 	
 	/***********************************************
@@ -319,7 +319,7 @@ public class kalahFunctions {
 				}
 				if (!allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed()){
 					LinkedList<kalahOption> keyGridList = allGrids.get(gridArray[i]);
-					int winCount = 0;
+					int scoreCount = 101010101;
 					int processedCount = 0;
 					long childrenCount = 0;
 					for (int j = 0; j < keyGridList.size(); j++)
@@ -327,34 +327,25 @@ public class kalahFunctions {
 						if(allGridsKeys.get(keyGridList.get(j).getGrid()).isProcessed()){
 							keyGridList.get(j).getGrid().setProcessed(true);
 							processedCount++;
-							if(keyGridList.get(j).getGrid().getWin() != allGridsKeys.get(keyGridList.get(j).getGrid()).getWin()){
-								keyGridList.get(j).getGrid().setWin(allGridsKeys.get(keyGridList.get(j).getGrid()).getWin());
+							if(keyGridList.get(j).getGrid().isGameOver() != allGridsKeys.get(keyGridList.get(j).getGrid()).isGameOver()){
+								keyGridList.get(j).getGrid().setGameOver(allGridsKeys.get(keyGridList.get(j).getGrid()).isGameOver());
 							}
-							if(keyGridList.get(j).getGrid().getWinningRatio() != allGridsKeys.get(keyGridList.get(j).getGrid()).getWinningRatio()){
-								keyGridList.get(j).getGrid().setWinningRatio(allGridsKeys.get(keyGridList.get(j).getGrid()).getWinningRatio());
+							if(keyGridList.get(j).getGrid().getAverageScore() != allGridsKeys.get(keyGridList.get(j).getGrid()).getAverageScore()){
+								keyGridList.get(j).getGrid().setAverageScore(allGridsKeys.get(keyGridList.get(j).getGrid()).getAverageScore());
 							}
 							if(keyGridList.get(j).getGrid().getTotalChildren() != allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren()){
 								keyGridList.get(j).getGrid().setTotalChildren(allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren());
-							}
-							if (keyGridList.get(j).getGrid().getWin()){
-								winCount++;
 							}
 							childrenCount += allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren() + 1;
 						}
 					}
 					if (processedCount == keyGridList.size()){
-						if (winCount == keyGridList.size()){
-							allGridsKeys.get(((gridArrayClass) gridArray[i])).setWin(false);
-						}
-						else{
-							allGridsKeys.get(((gridArrayClass) gridArray[i])).setWin(true);
-						}
-						allGridsKeys.get(((gridArrayClass) gridArray[i])).setProcessed(true);
-						allGridsKeys.get(((gridArrayClass) gridArray[i])).setWinningRatio((float)winCount/(float)keyGridList.size());
-						allGridsKeys.get(((gridArrayClass) gridArray[i])).setTotalChildren(childrenCount);
+						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setProcessed(true);
+						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setAverageScore(scoreCount);
+						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setTotalChildren(childrenCount);
 					}
 					else{
-						allGridsKeys.get(((gridArrayClass) gridArray[i])).setProcessed(false);
+						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setProcessed(false);
 					}
 				}
 				else{
