@@ -13,6 +13,8 @@ public class kalahFunctions {
 	private int doneCount = 0;
 	private int gridArrayLength = 1;
 	
+	Runtime runtime = Runtime.getRuntime();
+	
 	public void playerOnePlace(kalahArrayClass grid, int pitRow, int pitCol, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){
 		int track = 0;
 		int lastPit = 0;
@@ -245,6 +247,15 @@ public class kalahFunctions {
 	public void fillHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){         
 		while (this.doneCount < this.gridArrayLength){
 			System.out.println(this.doneCount + " is less than " + this.gridArrayLength);
+			System.out.println("\nFree Memory: "+ (runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory()))/1024 );
+			Long freeUsage = runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory())/1024;
+			if (freeUsage < 1200000){
+				System.gc();
+			}
+			else {
+				
+			}
+			
 			Object[] gridArray = allGrids.keySet().toArray();
 			this.gridArrayLength = gridArray.length;
 			this.doneCount = 0;
