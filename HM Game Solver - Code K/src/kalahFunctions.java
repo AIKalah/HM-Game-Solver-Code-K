@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class kalahFunctions {
 	public static int numofrows = 2;
-	public static int numofcols = 4; 
+	public static int numofcols = 8; 
 	public static int numofseeds = 3;
 	private boolean checkEveryMove = false;
 	//public static byte currentseeds;

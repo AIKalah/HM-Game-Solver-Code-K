@@ -60,7 +60,7 @@ public class kalahArrayClass {
 	 */
 		@Override
 	  public int hashCode() {
-	    int hash = java.util.Arrays.deepHashCode(grid) * this.playerTwoTurn.hashCode();
+	    int hash = java.util.Arrays.deepHashCode(grid);
 	    return hash;
 	  }
 		
