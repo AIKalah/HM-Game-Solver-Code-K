@@ -153,7 +153,9 @@ public class kalahArrayClass {
 		  else {
 			  returnString += "Turn: " + "Player 2";
 		  }
-		  
+		  returnString += ", P: " + processed;
+		  returnString += ", S: " + averageScore;
+		  returnString += ", C: " + totalChildren;
 		  return returnString;
 		}
 	

@@ -10,9 +10,10 @@ public class KMain {
 	
 	public static byte [][] gridInit = new byte[][] { 
 	
-	{0,3,3,3,3,3,3,0},
-	{0,3,3,3,3,3,3,0}
+	{10,0,0,1,2,1,1,14},
+	{10,1,1,1,1,1,2,14}
 	};
+	
 	
 	private static boolean print = true;
 	
