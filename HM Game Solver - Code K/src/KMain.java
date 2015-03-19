@@ -25,10 +25,12 @@ public class KMain {
 	
 	//BufferedReader to get user input
 		private static BufferedReader seedCalc = null;
+		private static BufferedReader commandInput = null;
 		
 	public static void main (String[] args) throws java.lang.Exception
 	{
 		seedCalc = new BufferedReader(new InputStreamReader(System.in));
+		commandInput = new BufferedReader(new InputStreamReader(System.in));
 		kalahFunctions functions = new kalahFunctions();
 		
 		//Hash map to contain all the possible board layouts and their moves
@@ -51,57 +53,129 @@ public class KMain {
 		System.out.println("Enter In Number of Seeds Until Calculation: ");
 		String seedCalcs = seedCalc.readLine();
 		int seeds = Integer.parseInt(seedCalcs);
+		System.out.println("Command List:\nh: Select a pit to move\nr: Random\nar: All Random\ns: Solve Grid");
+		boolean allRandom = false;
+		String command = null;
 		while(seedsRemain > seeds ){
-			int move = randMove.nextInt(((6 - 1) + 1)) + 1;
-			System.out.println(move);
+			if (!allRandom){
+				System.out.println("Enter Command: ");
+				command = commandInput.readLine();
+			}
 			
-			
-			if (turn == 1){
-				if (functions.canPlace(grid2, 1, move)){
-					functions.playerOnePlace(grid2, 1, move, allGrids, allGridsKeys);
-					if (!allGrids.get(grid2).isEmpty()){
-						seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
-					}
-					grid2 = allGrids.get(grid2).get(0).getGrid();
-					if (grid2.isPlayerTwoTurn() == false){
+			//Human Move
+			if (command.equals("h")){
+				System.out.println("Enter in pit number: ");
+				command = commandInput.readLine();
+				int pit = Integer.parseInt(command);
+				if (turn == 1){
+					if (functions.canPlace(grid2, 1, pit)){
+						functions.playerOnePlace(grid2, 1, pit, allGrids, allGridsKeys);
+						if (!allGrids.get(grid2).isEmpty()){
+							seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
+						}
+						grid2 = allGrids.get(grid2).get(0).getGrid();
+						if (grid2.isPlayerTwoTurn() == false){
+							
+						}
+						else {
+							turn = turn*-1;
+						}
+						
 						
 					}
 					else {
-						turn = turn*-1;
+						
 					}
-					
-					
 				}
-				else {
-					
-				}
-			}
-			else if (turn == -1){
-				if (functions.canPlace(grid2, 0, move)){
-					functions.playerTwoPlace(grid2, 0, move, allGrids, allGridsKeys);
-					if (!allGrids.get(grid2).isEmpty()){
-						seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
-					}
-					grid2 = allGrids.get(grid2).get(0).getGrid();
-					if (grid2.isPlayerTwoTurn()){
+				else if (turn == -1){
+					if (functions.canPlace(grid2, 0, pit)){
+						functions.playerTwoPlace(grid2, 0, pit, allGrids, allGridsKeys);
+						if (!allGrids.get(grid2).isEmpty()){
+							seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
+						}
+						grid2 = allGrids.get(grid2).get(0).getGrid();
+						if (grid2.isPlayerTwoTurn()){
+							
+						}
+						else {
+							turn = turn*-1;
+						}
+						
 						
 					}
 					else {
-						turn = turn*-1;
+						
+						
 					}
-					
-					
-				}
-				else {
-					
-					
 				}
 			}
+			//Random
+			else if (command.equals("r")){
+				int move = randMove.nextInt(((6 - 1) + 1)) + 1;
+				System.out.println(move);
+				if (turn == 1){
+					if (functions.canPlace(grid2, 1, move)){
+						functions.playerOnePlace(grid2, 1, move, allGrids, allGridsKeys);
+						if (!allGrids.get(grid2).isEmpty()){
+							seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
+						}
+						grid2 = allGrids.get(grid2).get(0).getGrid();
+						if (grid2.isPlayerTwoTurn() == false){
+							
+						}
+						else {
+							turn = turn*-1;
+						}
+						
+						
+					}
+					else {
+						
+					}
+				}
+				else if (turn == -1){
+					if (functions.canPlace(grid2, 0, move)){
+						functions.playerTwoPlace(grid2, 0, move, allGrids, allGridsKeys);
+						if (!allGrids.get(grid2).isEmpty()){
+							seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
+						}
+						grid2 = allGrids.get(grid2).get(0).getGrid();
+						if (grid2.isPlayerTwoTurn()){
+							
+						}
+						else {
+							turn = turn*-1;
+						}
+						
+						
+					}
+					else {
+						
+						
+					}
+				}
+			}
+			//All Random
+			else if (command.equals ("ar")){
+				command = "r";
+				allRandom = true;
+			}
+			//Solve Hash
+			else if (command.equals("s")){
+				break;
+			}
+			else{
+				
+			}
+		
+			
+			
 			
 			
 			count++;
+			System.out.println(grid2);
 		}
-		System.out.println(grid2);
+		
 		System.out.println(seedsRemain);
 		functions.buildHash(allGrids, allGridsKeys, grid2);
 		

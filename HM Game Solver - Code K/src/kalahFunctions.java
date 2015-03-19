@@ -246,8 +246,8 @@ public class kalahFunctions {
 	@SuppressWarnings("unchecked")
 	public void fillHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){         
 		while (this.doneCount < this.gridArrayLength){
-			System.out.println(this.doneCount + " is less than " + this.gridArrayLength);
-			System.out.println("\nFree Memory: "+ (runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory()))/1024 );
+			System.out.println("\n" + this.doneCount + " is less than " + this.gridArrayLength);
+			System.out.println("Free Memory: "+ (runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory()))/1024 );
 			Long freeUsage = runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory())/1024;
 			if (freeUsage < 1200000){
 				System.gc();
