@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class kalahFunctions {
 	public static int numofrows = 2;
-	public static int numofcols = 8; 
+	public static int numofcols = 5; 
 	public static int numofseeds = 3;
 	private boolean checkEveryMove = false;
 	//public static byte currentseeds;
@@ -82,6 +82,8 @@ public class kalahFunctions {
 			
 			int sumPlayerone = 0;
 			int sumPlayertwo = 0;
+			boolean didOne = false;
+			boolean didTwo = false;
 			for (int i = 1; i < numofcols - 1;i++){
 				sumPlayerone += gridInit [numofrows - 1][i];
 			}
@@ -89,6 +91,7 @@ public class kalahFunctions {
 				sumPlayertwo += gridInit [numofrows - 2][i];
 			}
 			if (sumPlayerone == 0){
+				sumPlayertwo = 0;
 				for (int i = 1; i < numofcols - 1;i++){
 					sumPlayertwo += gridInit [numofrows - 2][i];
 					gridInit [numofrows - 2][i] = 0;
@@ -98,8 +101,10 @@ public class kalahFunctions {
 				gridInit [1][0] += (byte) sumPlayertwo;
 				clonedGrid.setGameOver(true);
 				clonedGrid.setProcessed(true);
+				didOne = true;
 			}
 			else if (sumPlayertwo == 0){
+				sumPlayerone = 0;
 				for (int i = 1; i < numofcols - 1;i++){
 					sumPlayerone += gridInit [numofrows - 1][i];
 					gridInit [numofrows - 1][i] = 0;
@@ -108,8 +113,11 @@ public class kalahFunctions {
 				gridInit [1][numofcols - 1] += (byte) sumPlayerone;
 				clonedGrid.setGameOver(true);
 				clonedGrid.setProcessed(true);
+				didTwo = true;
 			}
-
+			if (didOne == true && didTwo == true){
+				System.out.println("IT DID BOTH!");
+			}
 				//System.out.println("\n" + clonedGrid);
 				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
 				if (allGrids.get(clonedGrid.getGrid()) != null)
@@ -193,6 +201,8 @@ public class kalahFunctions {
 			
 			int sumPlayerone = 0;
 			int sumPlayertwo = 0;
+			boolean didOne = false;
+			boolean didTwo = false;
 			for (int i = 1; i < numofcols - 1;i++){
 				sumPlayertwo += gridInit [numofrows - 2][i];
 			}
@@ -200,6 +210,7 @@ public class kalahFunctions {
 				sumPlayerone += gridInit [numofrows - 1][i];
 			}
 			if (sumPlayertwo == 0){
+				sumPlayerone = 0;
 				for (int i = 1; i < numofcols - 1;i++){
 					sumPlayerone += gridInit [numofrows - 1][i];
 					gridInit [numofrows - 1][i] = 0;
@@ -208,8 +219,10 @@ public class kalahFunctions {
 				gridInit [1][numofcols - 1] += (byte) sumPlayerone;
 				clonedGrid.setGameOver(true);
 				clonedGrid.setProcessed(true);
+				didOne = true;
 			}
 			else if (sumPlayerone == 0){
+				sumPlayertwo = 0;
 				for (int i = 1; i < numofcols - 1;i++){
 					sumPlayertwo += gridInit [numofrows - 2][i];
 					gridInit [numofrows - 2][i] = 0;
@@ -219,6 +232,10 @@ public class kalahFunctions {
 				gridInit [1][0] += (byte) sumPlayertwo;
 				clonedGrid.setGameOver(true);
 				clonedGrid.setProcessed(true);
+				didTwo = true;
+			}
+			if (didOne == true && didTwo == true){
+				System.out.println("IT DID BOTH!");
 			}
 			
 				//System.out.println("\n" + clonedGrid);
@@ -260,9 +277,24 @@ public class kalahFunctions {
 	 * Adds all possible moves from the starting grid to hash maps
 	 */
 	public void buildHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid){
-		for (int i = 1; i < (numofcols - 1); i++){
-			if (this.canPlace(grid, 1, i)){
+		if (grid.isPlayerTwoTurn() == false)
+		{
+		for (int i = 1; i < (numofcols - 1); i++)
+		{
+			if (this.canPlace(grid, 1, i))
+			{
 				this.playerOnePlace(grid,1,i,allGrids,allGridsKeys);
+			}
+		}
+		}
+		else
+		{
+			for (int i = 1; i < (numofcols - 1); i++)
+			{
+				if (this.canPlace(grid, 0, i))
+				{
+					this.playerTwoPlace(grid,0,i,allGrids,allGridsKeys);
+				}
 			}
 		}
 		fillHash(allGrids, allGridsKeys);
@@ -296,6 +328,7 @@ public class kalahFunctions {
 					boolean placed = false;
 					//playerOne
 					kalahArrayClass grid = allGridsKeys.get(gridArray[i]);
+					System.out.println("grid.isPlayertwoTurn: "+ grid.isPlayerTwoTurn());
 					if (grid.isPlayerTwoTurn() == false){
 						for (int j = 1; j < (numofcols - 1); j++){
 							if (this.canPlace(grid, 1, j)){

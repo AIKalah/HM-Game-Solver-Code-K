@@ -10,18 +10,18 @@ public class KMain {
 	
 	public static byte [][] gridInit = new byte[][] { 
 	
-	{10,0,0,1,2,1,1,14},
-	{10,1,1,1,1,1,2,14}
+	{0,1,1,1,0,1,1,14},
+	{0,0,2,1,0,1,2,14}
 	};
 	
 	
 	private static boolean print = true;
 	
-	public static kalahArrayClass grid = new kalahArrayClass(gridInit, false, false, false);
+	public static kalahArrayClass grid = new kalahArrayClass(gridInit, true, false, false);
 	public static kalahArrayClass grid2 = new kalahArrayClass(gridInit, false, false, false);
 	
 	public static int numofrows = 2;
-	public static int numofcols = 8; 
+	public static int numofcols = 5; 
 	public static int numofseeds = 3;
 	
 	//BufferedReader to get user input

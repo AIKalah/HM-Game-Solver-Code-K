@@ -58,8 +58,18 @@ public class kalahArrayClass {
 		return this.grid[0][grid[0].length];
 	}
 	
+	public void setPlayerOneScore(byte score){
+		this.grid[0][grid[0].length] = score;
+		this.grid[1][grid[0].length] = score;
+	}
+	
 	public byte getPlayerTwoScore(){
 		return this.grid[0][0];
+	}
+	
+	public void setPlayerTwoScore(byte score){
+		this.grid[0][0] = score;
+		this.grid[1][0] = score;
 	}
 	
 	public byte getScoreDifference(){
