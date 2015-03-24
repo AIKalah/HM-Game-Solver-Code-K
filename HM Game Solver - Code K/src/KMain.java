@@ -42,7 +42,7 @@ public class KMain {
 		HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys = new HashMap<kalahArrayClass,kalahArrayClass>();
 		
 		//Hash Map for AI
-		//HashMap<kalahArrayClass,LinkedList<LinkedList<kalahOption>>> limGrids = new HashMap <kalahArrayClass,LinkedList<LinkedList<kalahOption>>>;
+		HashMap<kalahArrayClass,LinkedList<smartAIOption>> limGrids = new HashMap <kalahArrayClass,LinkedList <smartAIOption>> ();
 				
 		System.out.println(grid);
 		LinkedList<kalahOption> startGridList = new LinkedList<kalahOption>();
@@ -70,24 +70,24 @@ public class KMain {
 			//Human Move
 			if (command.equals("h")){
 				if (!grid.isPlayerTwoTurn()){
-				System.out.println("Score: " + functions.smartAIPlayerOne(grid2,allGrids,allGridsKeys));
-				LinkedList<kalahOption> keyGridList = allGrids.get(grid2);
-				for (int i = 0; i < keyGridList.size(); i++){
+				System.out.println("Score: " + functions.smartAIPlayerOne(grid2,allGrids,allGridsKeys,limGrids));
+				//LinkedList<kalahOption> keyGridList = allGrids.get(grid2);
+				/*for (int i = 0; i < keyGridList.size(); i++){
 					System.out.println("testx");
 					if (keyGridList.get(i).getGrid().isPlayerTwoTurn()){
 						System.out.println("testx2");
-						System.out.println("Score: " + functions.smartAIPlayerTwo(keyGridList.get(i).getGrid(),allGrids,allGridsKeys));
+						System.out.println("Score: " + functions.smartAIPlayerTwo(keyGridList.get(i).getGrid(),allGrids,allGridsKeys,limGrids));
 					}
 					else{
 						
 					}
 					
 				}
-				
+				*/
 				break;
 				}
 				else if (grid.isPlayerTwoTurn()){
-					System.out.println("Score: " + functions.smartAIPlayerTwo(grid2,allGrids,allGridsKeys));
+					System.out.println("Score: " + functions.smartAIPlayerTwo(grid2,allGrids,allGridsKeys,limGrids));
 					break;
 					}
 				System.out.println("Enter in pit number: ");

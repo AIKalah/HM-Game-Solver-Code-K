@@ -434,19 +434,19 @@ public class kalahFunctions {
 	
 	}
 	
-	public int smartAIPlayerOne(kalahArrayClass grid, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){
+	public int smartAIPlayerOne(kalahArrayClass grid, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys,HashMap<kalahArrayClass,LinkedList<smartAIOption>> limGrids ){
 		//initial
-		PriorityQueue <kalahOption> optionPath = new PriorityQueue <kalahOption>();
+		PriorityQueue <smartAIOption> optionPath = new PriorityQueue <smartAIOption>();
 		//Stack<kalahOption> optionPath = new Stack <kalahOption>;
 		int counter = 0;
 		int score = 0;
 		kalahArrayClass grid2 = grid.clone();
 		if (grid.isPlayerTwoTurn()){
-			LinkedList <kalahOption> optionPathList = new LinkedList<kalahOption> ();
+			LinkedList <smartAIOption> optionPathList = new LinkedList<smartAIOption> ();
 			for (int i = 0; i < optionPath.size() - 1;i++){
 				optionPathList.add(optionPath.remove());
 			}
-			
+			limGrids.put(grid2, value)
 			score = grid.getGrid()[0][4];
 			System.out.println("test" + score);
 		   return score;
@@ -457,10 +457,10 @@ public class kalahFunctions {
 				if (canPlace(grid,1,i)){
 					playerOnePlace(grid, 1, i, allGrids, allGridsKeys);
 					grid2 = allGrids.get(grid).get(counter).getGrid();
-					kalahOption option = new kalahOption(grid2, 1, i);
+					smartAIOption option = new smartAIOption(grid2, 1, i);
 					optionPath.add(option);
 					counter++;
-					score = smartAIPlayerOne(grid2, allGrids, allGridsKeys);
+					score = smartAIPlayerOne(grid2, allGrids, allGridsKeys,limGrids);
 				}
 				
 			}
@@ -490,7 +490,7 @@ public class kalahFunctions {
 		return score;
 	}
 	
-	public int smartAIPlayerTwo(kalahArrayClass grid, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){
+	public int smartAIPlayerTwo(kalahArrayClass grid, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, HashMap<kalahArrayClass,LinkedList<smartAIOption>> limGrids){
 		//initial
 		Stack<kalahArrayClass> optionPath = null;
 		int counter = 0;
@@ -509,7 +509,7 @@ public class kalahFunctions {
 					grid2 = allGrids.get(grid).get(counter).getGrid();
 					optionPath.push(grid2);
 					counter++;
-					score = smartAIPlayerTwo(grid2, allGrids, allGridsKeys);
+					score = smartAIPlayerTwo(grid2, allGrids, allGridsKeys, limGrids);
 				}
 				
 			}
@@ -523,7 +523,7 @@ public class kalahFunctions {
 							grid2 = allGrids.get(grid).get(counter).getGrid();
 							optionPath.push(grid2);
 							counter++;
-							score = smartAIPlayerTwo(grid2, allGrids, allGridsKeys);
+							score = smartAIPlayerTwo(grid2, allGrids, allGridsKeys,limGrids);
 						}
 						
 					}
