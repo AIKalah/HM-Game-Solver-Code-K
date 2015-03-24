@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -381,6 +382,8 @@ public class kalahFunctions {
 				if (i % 100000 == 0){
 					System.out.println("Processing " + (i + 1) + " of " + gridArray.length + " keys/grids.");
 				}
+				System.out.println("\ngridArray[" + i + "]: " + (kalahArrayClass) gridArray[i]);
+				System.out.println("allGridsKeys.get(((kalahArrayClass) gridArray[" + i + "])).isProcessed: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed());
 				if (!allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed()){
 					LinkedList<kalahOption> keyGridList = allGrids.get(gridArray[i]);
 					int scoreCount = 101010101;
@@ -388,7 +391,7 @@ public class kalahFunctions {
 					long childrenCount = 0;
 					for (int j = 0; j < keyGridList.size(); j++)
 					{
-						//System.out.println("Processed: \n" + allGridsKeys.get(keyGridList.get(j).getGrid()));
+						System.out.println("allGridsKeys.get(keyGridList.get(" + j + ")).isProcessed: " + allGridsKeys.get(keyGridList.get(j).getGrid()).isProcessed());
 						if(allGridsKeys.get(keyGridList.get(j).getGrid()).isProcessed()){
 							keyGridList.get(j).getGrid().setProcessed(true);
 							processedCount++;
@@ -404,15 +407,21 @@ public class kalahFunctions {
 							childrenCount += allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren() + 1;
 						}
 					}
-					//System.out.println("Processed Count: " + processedCount + " and Size: " + keyGridList.size());
+					System.out.println("Processed Count: " + processedCount + " and Size: " + keyGridList.size());
+					System.out.println("Grid Before: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])));
 					if (processedCount == keyGridList.size()){
+						((kalahArrayClass) gridArray[i]).setProcessed(true);
+						((kalahArrayClass) gridArray[i]).setAverageScore(scoreCount);
+						((kalahArrayClass) gridArray[i]).setTotalChildren(childrenCount);
 						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setProcessed(true);
 						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setAverageScore(scoreCount);
 						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setTotalChildren(childrenCount);
 					}
 					else{
+						((kalahArrayClass) gridArray[i]).setProcessed(false);
 						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setProcessed(false);
 					}
+					System.out.println("Grid After: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])));
 				}
 				else{
 					totalProcessed++;

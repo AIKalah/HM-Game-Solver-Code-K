@@ -11,7 +11,7 @@ public class KMain {
 	public static byte [][] gridInit = new byte[][] { 
 	
 	{0,1,1,1,0,1,1,14},
-	{0,0,2,1,0,1,2,14}
+	{0,1,0,2,0,1,2,14}
 	};
 	
 	
