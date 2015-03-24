@@ -11,13 +11,13 @@ public class KMain {
 	public static byte [][] gridInit = new byte[][] { 
 	
 	{0,1,1,1,0,1,1,14},
-	{0,1,0,2,0,1,2,14}
+	{0,1,1,1,0,1,2,14}
 	};
 	
 	
 	private static boolean print = true;
 	
-	public static kalahArrayClass grid = new kalahArrayClass(gridInit, true, false, false);
+	public static kalahArrayClass grid = new kalahArrayClass(gridInit, false, false, false);
 	public static kalahArrayClass grid2 = new kalahArrayClass(gridInit, false, false, false);
 	
 	public static int numofrows = 2;
@@ -66,6 +66,10 @@ public class KMain {
 			
 			//Human Move
 			if (command.equals("h")){
+				if (true){
+				System.out.println("Score: " + functions.smartAIPlayerOne(grid2,allGrids,allGridsKeys));
+				break;
+				}
 				System.out.println("Enter in pit number: ");
 				command = commandInput.readLine();
 				int pit = Integer.parseInt(command);
@@ -178,7 +182,7 @@ public class KMain {
 			System.out.println(grid2);
 		}
 		System.out.println(seedsRemain);
-		functions.buildHash(allGrids, allGridsKeys, grid2);
+		//functions.buildHash(allGrids, allGridsKeys, grid2);
 		
 		if (print == true){
 			System.out.println("\n\n\nPrint out from hashmap now:");
