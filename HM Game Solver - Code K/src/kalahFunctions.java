@@ -421,5 +421,54 @@ public class kalahFunctions {
 			System.out.println("Total processed: " + totalProcessed + ", Size: " + gridArray.length);
 		}
 	}
+public String encode (int pit, kalahArrayClass grid2, boolean side, String gameNumber, String groupNumber){
+	String L1 = Byte.toString(grid2.getGrid()[1][1]);
+	String L2 = Byte.toString(grid2.getGrid()[1][2]);
+	String L3 = Byte.toString(grid2.getGrid()[1][3]);
+	String L4 = Byte.toString(grid2.getGrid()[1][4]);
+	String L5 = Byte.toString(grid2.getGrid()[1][5]);
+	String L6 = Byte.toString(grid2.getGrid()[1][6]);
+	String Lstore = Byte.toString(grid2.getGrid()[1][7]);
 	
+	String R1 = Byte.toString(grid2.getGrid()[0][6]);
+	String R2 = Byte.toString(grid2.getGrid()[0][5]);
+	String R3 = Byte.toString(grid2.getGrid()[0][4]);
+	String R4 = Byte.toString(grid2.getGrid()[0][3]);
+	String R5 = Byte.toString(grid2.getGrid()[0][2]);
+	String R6 = Byte.toString(grid2.getGrid()[0][1]);
+	String Rstore = Byte.toString(grid2.getGrid()[0][0]);
+	if (side == true){
+	
+		
+		return (gameNumber + " " + "group" + groupNumber + " " + "L" + pit + " " + L1 + " " + L2 + " " + L3 + " " + L4 + " " + L5 + " " + L6 + " " + Lstore + " " + R1 + " " + R2 + " " + R3 + " " + R4 + " " + R5 + " " + R6 + " " + Rstore);
+	}
+	else if (side == false){
+		if (pit == 1){
+			pit = 6;
+		}
+		else if (pit == 2){
+			pit = 5;
+		}
+		else if (pit == 3){
+			pit = 4;
+		}
+		else if (pit == 4){
+			pit = 3;
+		}
+		else if (pit == 5){
+			pit = 2;
+		}
+		else if (pit == 6){
+			pit = 1;
+		}
+		
+		return (gameNumber + " " + "group" + groupNumber + " " + "L" + pit + " " + L1 + " " + L2 + " " + L3 + " " + L4 + " " + L5 + " " + L6 + " " + Lstore + " " + R1 + " " + R2 + " " + R3 + " " + R4 + " " + R5 + " " + R6 + " " + Rstore);
+
+	}
+	else{
+		
+	}
+	return null;
+	
+}
 }

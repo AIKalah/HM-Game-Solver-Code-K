@@ -8,22 +8,22 @@ import java.util.Random;
 
 import com.source.TwitterMessenger;
 
-public class KMain {
+public class KMainTwitter {
 	
 	public static byte [][] gridInit = new byte[][] { 
 	
-	{0,1,1,1,0,1,1,14},
-	{0,0,2,1,0,1,2,14}
+	{0,3,3,3,3,3,3,0},
+	{0,3,3,3,3,3,3,0}
 	};
 	
 	
 	private static boolean print = true;
 	
-	public static kalahArrayClass grid = new kalahArrayClass(gridInit, true, false, false);
+	public static kalahArrayClass grid = new kalahArrayClass(gridInit, false, false, false);
 	public static kalahArrayClass grid2 = new kalahArrayClass(gridInit, false, false, false);
 	
 	public static int numofrows = 2;
-	public static int numofcols = 5; 
+	public static int numofcols = 8; 
 	public static int numofseeds = 3;
 	public static TwitterMessenger tweeter = new TwitterMessenger(2);
 	//BufferedReader to get user input
@@ -50,6 +50,55 @@ public class KMain {
 		LinkedList<kalahOption> startGridList = new LinkedList<kalahOption>();
 		allGridsKeys.put(grid, grid);
 		allGrids.put(grid, startGridList);
+		
+		//Twitter Test
+		boolean sidePass = true;
+		System.out.println("Type start to make a game, and accept to handshake one: ");
+		String game = commandInput.readLine();
+		System.out.println("Are we going first?");
+		String side = commandInput.readLine();
+		System.out.println("What game number?: ");
+		String gameNumber = commandInput.readLine();
+		System.out.println("What group are you facing?: ");
+		String groupNumber = commandInput.readLine();
+		if (game.equals("start")){
+			if (side.equals("y")){
+				sidePass = true;
+				String invite = gameNumber + " " + "group2" + " " + "group"+groupNumber;
+				System.out.println(invite);
+				//tweeter.post("cdbh2", invite);
+			}
+			else if (side.equals("n")){
+				sidePass = false;
+				String invite = gameNumber + " " + "group"+groupNumber + " " + "group2";
+				System.out.println(invite);
+				//tweeter.post("cdbh2", invite);
+			}
+			else{
+				
+			}
+		}
+		else if (game.equals("accept")){
+			if (side.equals("y")){
+				sidePass = true;
+				String invite = gameNumber + " " + "group2" + " " + "group"+groupNumber+" accepted";
+				System.out.println(invite);
+				//tweeter.post("cdbh2", invite);
+			}
+			else if (side.equals("n")){
+				sidePass = false;
+				String invite = gameNumber + " " + "group"+groupNumber + " " + "group2"+" accepted";
+				System.out.println(invite);
+				//tweeter.post("cdbh2", invite);
+			}
+			else{
+				
+			}
+		}
+		//////////////////////
+		
+		
+		
 		//Start a random test
 		Random randMove = new Random();
 		int count = 0;
@@ -68,6 +117,8 @@ public class KMain {
 		while(seedsRemain > seeds ){
 			if (!allRandom){
 				if (firstTurn.equals("n")){
+					//grid.setPlayerTwoTurn(true);
+					//turn = turn*-1;
 					command = "h";
 				}
 				else{
@@ -102,6 +153,8 @@ public class KMain {
 					else {
 						
 					}
+					String move = functions.encode(pit,grid2,sidePass,gameNumber,"2");
+					System.out.println(move);
 				}
 				else if (turn == -1){
 					if (functions.canPlace(grid2, 0, pit)){
@@ -123,6 +176,8 @@ public class KMain {
 						
 						
 					}
+					String move = functions.encode(pit,grid2,sidePass,gameNumber,"2");
+					System.out.println(move);
 				}
 			}
 			//Random
