@@ -1,6 +1,8 @@
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Stack;
 
 
 public class kalahFunctions {
@@ -434,10 +436,17 @@ public class kalahFunctions {
 	
 	public int smartAIPlayerOne(kalahArrayClass grid, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){
 		//initial
+		PriorityQueue <kalahOption> optionPath = new PriorityQueue <kalahOption>();
+		//Stack<kalahOption> optionPath = new Stack <kalahOption>;
 		int counter = 0;
 		int score = 0;
 		kalahArrayClass grid2 = grid.clone();
 		if (grid.isPlayerTwoTurn()){
+			LinkedList <kalahOption> optionPathList = new LinkedList<kalahOption> ();
+			for (int i = 0; i < optionPath.size() - 1;i++){
+				optionPathList.add(optionPath.remove());
+			}
+			
 			score = grid.getGrid()[0][4];
 			System.out.println("test" + score);
 		   return score;
@@ -448,6 +457,8 @@ public class kalahFunctions {
 				if (canPlace(grid,1,i)){
 					playerOnePlace(grid, 1, i, allGrids, allGridsKeys);
 					grid2 = allGrids.get(grid).get(counter).getGrid();
+					kalahOption option = new kalahOption(grid2, 1, i);
+					optionPath.add(option);
 					counter++;
 					score = smartAIPlayerOne(grid2, allGrids, allGridsKeys);
 				}
@@ -461,6 +472,8 @@ public class kalahFunctions {
 						if (canPlace(grid,1,j)){
 							playerOnePlace(grid, 1, j, allGrids, allGridsKeys);
 							grid2 = allGrids.get(grid).get(counter).getGrid();
+							kalahOption option = new kalahOption(grid2, 1, j);
+							optionPath.add(option);
 							counter++;
 							score = smartAIPlayerOne(grid2, allGrids, allGridsKeys);
 						}
@@ -479,35 +492,38 @@ public class kalahFunctions {
 	
 	public int smartAIPlayerTwo(kalahArrayClass grid, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){
 		//initial
+		Stack<kalahArrayClass> optionPath = null;
 		int counter = 0;
 		int score = 0;
 		kalahArrayClass grid2 = grid.clone();
-		if (grid.isPlayerTwoTurn()){
-			score = grid.getGrid()[0][4];
+		if (!grid.isPlayerTwoTurn()){
+			score = grid.getGrid()[0][0];
 			System.out.println("test" + score);
 		   return score;
 		}
 		for (int i = 1; i < numofcols - 1;i++){
-			if (grid.getGrid()[1][i] == (4 - i)){
+			if (grid.getGrid()[0][i] - i == (0)){
 				//System.out.println("Print i :"+ i);
-				if (canPlace(grid,1,i)){
-					playerOnePlace(grid, 1, i, allGrids, allGridsKeys);
+				if (canPlace(grid,0,i)){
+					playerTwoPlace(grid, 0, i, allGrids, allGridsKeys);
 					grid2 = allGrids.get(grid).get(counter).getGrid();
+					optionPath.push(grid2);
 					counter++;
-					score = smartAIPlayerOne(grid2, allGrids, allGridsKeys);
+					score = smartAIPlayerTwo(grid2, allGrids, allGridsKeys);
 				}
 				
 			}
-			else if (!canPlace(grid,1,i)){
+			else if (!canPlace(grid,0,i)){
 				//steals
 				for (int j= 1; j < numofcols - 1;j++){
 					//System.out.println("Print j: "+ j);
-					if (grid.getGrid()[1][j] == (i - j)){
-						if (canPlace(grid,1,j)){
-							playerOnePlace(grid, 1, j, allGrids, allGridsKeys);
+					if (grid.getGrid()[0][j] == (j - i)){
+						if (canPlace(grid,0,j)){
+							playerTwoPlace(grid, 0, j, allGrids, allGridsKeys);
 							grid2 = allGrids.get(grid).get(counter).getGrid();
+							optionPath.push(grid2);
 							counter++;
-							score = smartAIPlayerOne(grid2, allGrids, allGridsKeys);
+							score = smartAIPlayerTwo(grid2, allGrids, allGridsKeys);
 						}
 						
 					}
