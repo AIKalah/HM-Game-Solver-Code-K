@@ -24,7 +24,7 @@ public class KMain {
 	public static int numofcols = 5; 
 	public static int numofseeds = 3;
 	//This is for you Chris
-	public static boolean wePlayerOne = false;
+	public static boolean wePlayerOne = true;
 	
 	//BufferedReader to get user input
 		private static BufferedReader seedCalc = null;

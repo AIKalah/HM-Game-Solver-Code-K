@@ -4,22 +4,20 @@ public class kalahArrayClass {
 	Boolean playerTwoTurn;
 	boolean gameOver;
 	boolean processed;
-	boolean win;
-	boolean tie;
+	String state;
 	float averageScore;
 	long totalChildren;
-	
+
 	public kalahArrayClass(byte[][] gridInit, boolean playerTurn, boolean gameOver, boolean processed) {
-		grid = gridInit;
+		setGrid(gridInit);
 		setPlayerTwoTurn(playerTurn);
 		setGameOver(gameOver);
 		setProcessed(processed);
-		setWin(false);
-		setTie(false);
+		setState("UNKNOWN");
 	}
 	
 	public byte[][] getGrid() {
-		return grid;
+		return this.grid;
 	}
 
 	public void setGrid(byte[][] grid) {
@@ -82,7 +80,7 @@ public class kalahArrayClass {
 	}
 	
 	public float getAverageScore() {
-		return averageScore;
+		return this.averageScore;
 	}
 
 	public void setAverageScore(float averageScore) {
@@ -90,27 +88,19 @@ public class kalahArrayClass {
 	}
 	
 	public long getTotalChildren() {
-		return totalChildren;
+		return this.totalChildren;
 	}
 
 	public void setTotalChildren(long totalChildren) {
 		this.totalChildren = totalChildren;
 	}
 	
-	public boolean getWin(){
-		return win;
+	public String getState(){
+		return this.state;
 	}
 	
-	public void setWin(boolean win){
-		this.win = win;
-	}
-	
-	public boolean getTie(){
-		return tie;
-	}
-	
-	public void setTie(boolean tie){
-		this.tie = tie;
+	public void setState(String state){
+		this.state = state;
 	}
 	
 	/*
@@ -178,20 +168,19 @@ public class kalahArrayClass {
 			  }
 		  }
 		  returnString += "]";
-		  if (playerTwoTurn == false){
+		  if (this.playerTwoTurn == false){
 			  returnString += "Turn: " + "Player 1";
 		  }
 		  else {
 			  returnString += "Turn: " + "Player 2";
 		  }
-		  returnString += ", P: " + processed;
+		  returnString += ", P: " + this.processed;
 		  returnString += ", P1: " + this.getPlayerOneScore();
 		  returnString += ", P2: " + this.getPlayerTwoScore();
-		  returnString += ", S: " + this.getScoreDifference();
-		  returnString += ", C: " + totalChildren;
-		  returnString += ", G: " + gameOver;
-		  returnString += ", T: " + tie;
-		  returnString += ", W: " + win;
+		  returnString += ", D: " + this.getScoreDifference();
+		  returnString += ", C: " + this.totalChildren;
+		  returnString += ", G: " + this.gameOver;
+		  returnString += ", S: " + this.state;
 		  return returnString;
 		}
 	
