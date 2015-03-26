@@ -83,8 +83,6 @@ public class kalahFunctions {
 			
 			int sumPlayerone = 0;
 			int sumPlayertwo = 0;
-			boolean didOne = false;
-			boolean didTwo = false;
 			for (int i = 1; i < numofcols - 1;i++){
 				sumPlayerone += gridInit [numofrows - 1][i];
 			}
@@ -101,8 +99,29 @@ public class kalahFunctions {
 				gridInit [0][0] += (byte) sumPlayertwo;
 				gridInit [1][0] += (byte) sumPlayertwo;
 				clonedGrid.setGameOver(true);
+				if (clonedGrid.getScoreDifference() == 0){
+					clonedGrid.setTie(true);
+				}
+				else{
+					clonedGrid.setTie(false);
+					if (KMain.wePlayerOne){
+						if (clonedGrid.getScoreDifference() > 0){
+							clonedGrid.setWin(true);
+						}
+						else{
+							clonedGrid.setWin(false);
+						}
+					}
+					else{
+						if (clonedGrid.getScoreDifference() < 0){
+							clonedGrid.setWin(true);
+						}
+						else{
+							clonedGrid.setWin(false);
+						}
+					}
+				}
 				clonedGrid.setProcessed(true);
-				didOne = true;
 			}
 			else if (sumPlayertwo == 0){
 				sumPlayerone = 0;
@@ -113,11 +132,29 @@ public class kalahFunctions {
 				gridInit [0][numofcols - 1] += (byte) sumPlayerone;
 				gridInit [1][numofcols - 1] += (byte) sumPlayerone;
 				clonedGrid.setGameOver(true);
+				if (clonedGrid.getScoreDifference() == 0){
+					clonedGrid.setTie(true);
+				}
+				else{
+					clonedGrid.setTie(false);
+					if (KMain.wePlayerOne){
+						if (clonedGrid.getScoreDifference() > 0){
+							clonedGrid.setWin(true);
+						}
+						else{
+							clonedGrid.setWin(false);
+						}
+					}
+					else{
+						if (clonedGrid.getScoreDifference() < 0){
+							clonedGrid.setWin(true);
+						}
+						else{
+							clonedGrid.setWin(false);
+						}
+					}
+				}
 				clonedGrid.setProcessed(true);
-				didTwo = true;
-			}
-			if (didOne == true && didTwo == true){
-				System.out.println("IT DID BOTH!");
 			}
 				//System.out.println("\n" + clonedGrid);
 				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
@@ -202,8 +239,6 @@ public class kalahFunctions {
 			
 			int sumPlayerone = 0;
 			int sumPlayertwo = 0;
-			boolean didOne = false;
-			boolean didTwo = false;
 			for (int i = 1; i < numofcols - 1;i++){
 				sumPlayertwo += gridInit [numofrows - 2][i];
 			}
@@ -219,8 +254,29 @@ public class kalahFunctions {
 				gridInit [0][numofcols - 1] += (byte) sumPlayerone;
 				gridInit [1][numofcols - 1] += (byte) sumPlayerone;
 				clonedGrid.setGameOver(true);
+				if (clonedGrid.getScoreDifference() == 0){
+					clonedGrid.setTie(true);
+				}
+				else{
+					clonedGrid.setTie(false);
+					if (KMain.wePlayerOne){
+						if (clonedGrid.getScoreDifference() > 0){
+							clonedGrid.setWin(true);
+						}
+						else{
+							clonedGrid.setWin(false);
+						}
+					}
+					else{
+						if (clonedGrid.getScoreDifference() < 0){
+							clonedGrid.setWin(true);
+						}
+						else{
+							clonedGrid.setWin(false);
+						}
+					}
+				}
 				clonedGrid.setProcessed(true);
-				didOne = true;
 			}
 			else if (sumPlayerone == 0){
 				sumPlayertwo = 0;
@@ -232,11 +288,29 @@ public class kalahFunctions {
 				gridInit [0][0] += (byte) sumPlayertwo;
 				gridInit [1][0] += (byte) sumPlayertwo;
 				clonedGrid.setGameOver(true);
+				if (clonedGrid.getScoreDifference() == 0){
+					clonedGrid.setTie(true);
+				}
+				else{
+					clonedGrid.setTie(false);
+					if (KMain.wePlayerOne){
+						if (clonedGrid.getScoreDifference() > 0){
+							clonedGrid.setWin(true);
+						}
+						else{
+							clonedGrid.setWin(false);
+						}
+					}
+					else{
+						if (clonedGrid.getScoreDifference() < 0){
+							clonedGrid.setWin(true);
+						}
+						else{
+							clonedGrid.setWin(false);
+						}
+					}
+				}
 				clonedGrid.setProcessed(true);
-				didTwo = true;
-			}
-			if (didOne == true && didTwo == true){
-				System.out.println("IT DID BOTH!");
 			}
 			
 				//System.out.println("\n" + clonedGrid);
@@ -352,6 +426,28 @@ public class kalahFunctions {
 						kalahOption option = new kalahOption((kalahArrayClass)gridArray[i],0,0);
 						allGrids.get(gridArray[i]).add(option);
 						((kalahArrayClass) gridArray[i]).setGameOver(true);
+						if (((kalahArrayClass) gridArray[i]).getScoreDifference() == 0){
+							((kalahArrayClass) gridArray[i]).setTie(true);
+						}
+						else{
+							((kalahArrayClass) gridArray[i]).setTie(false);
+							if (KMain.wePlayerOne){
+								if (((kalahArrayClass) gridArray[i]).getScoreDifference() > 0){
+									((kalahArrayClass) gridArray[i]).setWin(true);
+								}
+								else{
+									((kalahArrayClass) gridArray[i]).setWin(false);
+								}
+							}
+							else{
+								if (((kalahArrayClass) gridArray[i]).getScoreDifference() < 0){
+									((kalahArrayClass) gridArray[i]).setWin(true);
+								}
+								else{
+									((kalahArrayClass) gridArray[i]).setWin(false);
+								}
+							}
+						}
 						((kalahArrayClass) gridArray[i]).setProcessed(true);
 					}
 				}
@@ -386,9 +482,11 @@ public class kalahFunctions {
 				System.out.println("allGridsKeys.get(((kalahArrayClass) gridArray[" + i + "])).isProcessed: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed());
 				if (!allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed()){
 					LinkedList<kalahOption> keyGridList = allGrids.get(gridArray[i]);
+					int winCount = 0;
 					int scoreCount = 101010101;
 					int processedCount = 0;
 					long childrenCount = 0;
+					boolean samePlayer = false;
 					for (int j = 0; j < keyGridList.size(); j++)
 					{
 						System.out.println("allGridsKeys.get(keyGridList.get(" + j + ")).isProcessed: " + allGridsKeys.get(keyGridList.get(j).getGrid()).isProcessed());
@@ -404,12 +502,26 @@ public class kalahFunctions {
 							if(keyGridList.get(j).getGrid().getTotalChildren() != allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren()){
 								keyGridList.get(j).getGrid().setTotalChildren(allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren());
 							}
+							if (keyGridList.get(j).getGrid().getWin()){
+								winCount++;
+							}
+							if (keyGridList.get(j).getGrid().isPlayerTwoTurn() == allGridsKeys.get(((kalahArrayClass) gridArray[i])).isPlayerTwoTurn()){
+								samePlayer = true;
+							}
 							childrenCount += allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren() + 1;
 						}
 					}
 					System.out.println("Processed Count: " + processedCount + " and Size: " + keyGridList.size());
 					System.out.println("Grid Before: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])));
 					if (processedCount == keyGridList.size()){
+						if (winCount == keyGridList.size() && !samePlayer){
+							allGridsKeys.get(((kalahArrayClass) gridArray[i])).setWin(false);
+							((kalahArrayClass) gridArray[i]).setWin(false);
+						}
+						else{
+							allGridsKeys.get(((kalahArrayClass) gridArray[i])).setWin(true);
+							((kalahArrayClass) gridArray[i]).setWin(true);
+						}
 						((kalahArrayClass) gridArray[i]).setProcessed(true);
 						((kalahArrayClass) gridArray[i]).setAverageScore(scoreCount);
 						((kalahArrayClass) gridArray[i]).setTotalChildren(childrenCount);

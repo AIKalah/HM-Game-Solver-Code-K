@@ -10,19 +10,21 @@ public class KMain {
 	
 	public static byte [][] gridInit = new byte[][] { 
 	
-	{0,1,1,1,0,1,1,14},
-	{0,1,0,2,0,1,2,14}
+	{0,1,1,1,1,1,1,14},
+	{0,1,1,0,1,1,2,14}
 	};
 	
 	
 	private static boolean print = true;
 	
-	public static kalahArrayClass grid = new kalahArrayClass(gridInit, true, false, false);
+	public static kalahArrayClass grid = new kalahArrayClass(gridInit, false, false, false);
 	public static kalahArrayClass grid2 = new kalahArrayClass(gridInit, false, false, false);
 	
 	public static int numofrows = 2;
 	public static int numofcols = 5; 
 	public static int numofseeds = 3;
+	//This is for you Chris
+	public static boolean wePlayerOne = false;
 	
 	//BufferedReader to get user input
 		private static BufferedReader seedCalc = null;
