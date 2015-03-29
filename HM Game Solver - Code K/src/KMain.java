@@ -32,10 +32,21 @@ public class KMain {
 		
 	public static void main (String[] args) throws java.lang.Exception
 	{
+		int sumPlayerone = 0;
+		int sumPlayertwo = 0;
+		
+		for (int i = 1; i < numofcols - 1;i++){
+			sumPlayertwo += gridInit [numofrows - 2][i];
+		}
+		for (int i = 1; i < numofcols - 1;i++){
+			sumPlayerone += gridInit [numofrows - 1][i];
+		}
+		
 		seedCalc = new BufferedReader(new InputStreamReader(System.in));
 		commandInput = new BufferedReader(new InputStreamReader(System.in));
 		
 		kalahFunctions functions = new kalahFunctions();
+		functions.sum = sumPlayertwo+sumPlayerone;
 		
 		//Hash map to contain all the possible board layouts and their moves
 		HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids = new HashMap<kalahArrayClass, LinkedList<kalahOption>>();
@@ -180,7 +191,7 @@ public class KMain {
 			System.out.println(grid2);
 		}
 		System.out.println(seedsRemain);
-		functions.buildHash(allGrids, allGridsKeys, grid2);
+		functions.limitedbuildHash(allGrids, allGridsKeys, grid2);
 		
 		if (print == true){
 			System.out.println("\n\n\nPrint out from hashmap now:");

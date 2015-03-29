@@ -552,5 +552,156 @@ public class kalahFunctions {
 			//System.out.println("Total processed: " + totalProcessed + ", Size: " + gridArray.length);
 		}
 	}
+	public void limitedbuildHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid){
+		if (grid.isPlayerTwoTurn() == false)
+		{
+		for (int i = 1; i < (numofcols - 1); i++)
+		{
+			if (this.canPlace(grid, 1, i))
+			{
+				this.playerOnePlace(grid,1,i,allGrids,allGridsKeys);
+			}
+		}
+		}
+		else
+		{
+			for (int i = 1; i < (numofcols - 1); i++)
+			{
+				if (this.canPlace(grid, 0, i))
+				{
+					this.playerTwoPlace(grid,0,i,allGrids,allGridsKeys);
+				}
+			}
+		}
+		//fillHash(allGrids, allGridsKeys);
+		limitedfillHash(allGrids, allGridsKeys);
+	}
+	
+	public void buildHashStandAlone (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid){
+		if (grid.isPlayerTwoTurn() == false)
+		{
+		for (int i = 1; i < (numofcols - 1); i++)
+		{
+			if (this.canPlace(grid, 1, i))
+			{
+				this.playerOnePlace(grid,1,i,allGrids,allGridsKeys);
+			}
+		}
+		}
+		else
+		{
+			for (int i = 1; i < (numofcols - 1); i++)
+			{
+				if (this.canPlace(grid, 0, i))
+				{
+					this.playerTwoPlace(grid,0,i,allGrids,allGridsKeys);
+				}
+			}
+		}
+	}
+	int level = -1;
+	public int sum;
+	public void limitedfillHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){         
+		while (this.doneCount < this.gridArrayLength){
+			System.out.println("\n" + this.doneCount + " is less than " + this.gridArrayLength);
+			System.out.println("Free Memory: "+ (runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory()))/1024 );
+			Long freeUsage = runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory())/1024;
+			/*if (freeUsage < 1200000){
+				System.gc();
+			}
+			else {
+				
+			}*/
+			
+			Object[] gridArray = allGrids.keySet().toArray();
+			this.gridArrayLength = gridArray.length;
+			this.doneCount = 0;
+			for(int i = 0; i < this.gridArrayLength; i++) {
+				if (allGrids.get(gridArray[i]).peekFirst() == null)
+				{
+					boolean placed = false;
+					//playerOne
+					kalahArrayClass grid = allGridsKeys.get(gridArray[i]);
+					//System.out.println("grid.isPlayertwoTurn: "+ grid.isPlayerTwoTurn());
+					if (grid.isPlayerTwoTurn() == false){
+						for (int j = 1; j < (numofcols - 1); j++){
+							if (grid.getGrid()[1][j] == ((numofcols - 1) - j)){
+									if (this.canPlace(grid, 1, j)){
+										this.playerOnePlace(grid,1,j,allGrids,allGridsKeys);
+										placed = true;
+									}
+							}
+						}
+						
+						for (int j = 1; j < (numofcols - 1); j++){
+							if (!canPlace(grid,1,j)  && grid.getGrid()[0][j] != 0){
+								for (int k= 1; k < numofcols - 1;k++){
+									if (grid.getGrid()[1][k] == (j - k)){
+										if (this.canPlace(grid, 1, k))
+										{
+										this.playerOnePlace(grid,1,k,allGrids,allGridsKeys);
+										placed = true;
+										}
+									}
+								}
+							 }
+						}
+					}
+					//playerTwo grid.getGrid()[1][j] != 0
+					else{
+						for (int j = 1; j < numofcols - 1;j++){
+							if (grid.getGrid()[0][j] - j == (0)){
+								if (this.canPlace(grid, 0, j)){
+									this.playerTwoPlace(grid,0,j,allGrids,allGridsKeys);
+									placed = true;
+								}
+							}
+						}
+							
+						for (int j = 1; j < (numofcols - 1); j++){
+							if (!canPlace(grid,0,j) && grid.getGrid()[1][j] != 0){
+								for (int k = 1; k < (numofcols - 1); k++){
+									if (grid.getGrid()[0][k] == k - j){
+										if (this.canPlace(grid, 0, k)){
+											this.playerTwoPlace(grid,0,k,allGrids,allGridsKeys);
+											placed = true;
+										}
+									}
+								}
+							}
+							
+							
+						}
+						
+					}
+					
+					if (!placed)
+					{
+						kalahArrayClass tempGrid = (kalahArrayClass) gridArray[i];
+						int compareScore = tempGrid.getGrid()[0][0] + tempGrid.getGrid()[numofrows - 1][numofcols - 1];
+						if (compareScore != sum){
+							buildHashStandAlone(allGrids, allGridsKeys, allGridsKeys.get(gridArray[i]));
+						}
+						else {
+							kalahOption option = new kalahOption((kalahArrayClass)gridArray[i],0,0);
+							allGrids.get(gridArray[i]).add(option);
+							((kalahArrayClass) gridArray[i]).setGameOver(true);
+							((kalahArrayClass) gridArray[i]).setProcessed(true);
+						}
+						
+					}
+				}
+				else
+				{
+				
+					//System.out.println(i + " is not null");
+					this.doneCount++;
+				}
+			}
+			level++;
+		}
+		//processHash(allGrids, allGridsKeys);
+	}
+
 	
 }
