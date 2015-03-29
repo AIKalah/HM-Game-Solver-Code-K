@@ -3,15 +3,18 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
+import java.util.PriorityQueue;
 import java.util.Random;
+import java.util.Stack;
 
 
 public class KMain {
 	
 	public static byte [][] gridInit = new byte[][] { 
-	
-	{0,1,1,1,0,1,1,14},
-	{0,1,2,2,0,1,2,14}
+
+	{0,1,1,1,0,3,3,0},
+	{0,1,2,1,0,3,3,0}
 	};
 	
 	
@@ -23,17 +26,29 @@ public class KMain {
 	public static int numofrows = 2;
 	public static int numofcols = 5; 
 	public static int numofseeds = 3;
+	//public static int sum = 0;
 	
-	//BufferedReader to get user input
+	    //BufferedReader to get user input
 		private static BufferedReader seedCalc = null;
 		private static BufferedReader commandInput = null;
 		
 	public static void main (String[] args) throws java.lang.Exception
 	{
+		int sumPlayerone = 0;
+		int sumPlayertwo = 0;
+		
+		for (int i = 1; i < numofcols - 1;i++){
+			sumPlayertwo += gridInit [numofrows - 2][i];
+		}
+		for (int i = 1; i < numofcols - 1;i++){
+			sumPlayerone += gridInit [numofrows - 1][i];
+		}
+		
 		seedCalc = new BufferedReader(new InputStreamReader(System.in));
 		commandInput = new BufferedReader(new InputStreamReader(System.in));
 		
 		kalahFunctions functions = new kalahFunctions();
+		functions.sum = sumPlayerone + sumPlayertwo;
 		
 		//Hash map to contain all the possible board layouts and their moves
 		HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids = new HashMap<kalahArrayClass, LinkedList<kalahOption>>();
@@ -42,7 +57,9 @@ public class KMain {
 		HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys = new HashMap<kalahArrayClass,kalahArrayClass>();
 		
 		//Hash Map for AI
-		HashMap<kalahArrayClass,LinkedList<smartAIOption>> limGrids = new HashMap <kalahArrayClass,LinkedList <smartAIOption>> ();
+		/*HashMap<kalahArrayClass,LinkedList<kalahOption>> limGrids = new HashMap <kalahArrayClass,LinkedList <kalahOption>> ();
+		Stack <kalahOption> optionPath = new Stack <kalahOption>();*/
+		//PriorityQueue <kalahOption> optionPath = new PriorityQueue <kalahOption>();
 				
 		System.out.println(grid);
 		LinkedList<kalahOption> startGridList = new LinkedList<kalahOption>();
@@ -69,27 +86,14 @@ public class KMain {
 			
 			//Human Move
 			if (command.equals("h")){
-				if (!grid.isPlayerTwoTurn()){
-				System.out.println("Score: " + functions.smartAIPlayerOne(grid2,allGrids,allGridsKeys,limGrids));
-				//LinkedList<kalahOption> keyGridList = allGrids.get(grid2);
-				/*for (int i = 0; i < keyGridList.size(); i++){
-					System.out.println("testx");
-					if (keyGridList.get(i).getGrid().isPlayerTwoTurn()){
-						System.out.println("testx2");
-						System.out.println("Score: " + functions.smartAIPlayerTwo(keyGridList.get(i).getGrid(),allGrids,allGridsKeys,limGrids));
-					}
-					else{
-						
-					}
-					
-				}
-				*/
+				
+				
+			if (true){
+				functions.limitedbuildHash(allGrids, allGridsKeys, grid2);
 				break;
-				}
-				else if (grid.isPlayerTwoTurn()){
-					System.out.println("Score: " + functions.smartAIPlayerTwo(grid2,allGrids,allGridsKeys,limGrids));
-					break;
-					}
+			}
+				
+				
 				System.out.println("Enter in pit number: ");
 				command = commandInput.readLine();
 				int pit = Integer.parseInt(command);
@@ -202,6 +206,7 @@ public class KMain {
 			System.out.println(grid2);
 		}
 		System.out.println(seedsRemain);
+		functions.limitedbuildHash(allGrids, allGridsKeys, grid2);
 		//functions.buildHash(allGrids, allGridsKeys, grid2);
 		
 		if (print == true){
@@ -210,9 +215,9 @@ public class KMain {
 			while (iterator.hasNext()) {
 			   System.out.println("\n" + iterator.next());
 			}
-			System.out.println("\nDone printing Hashmap");
+			System.out.println("\nDone printing Hashmap\n\n\n");
 		}
 		
-	
+	System.out.print(functions.level);
 	}
 }

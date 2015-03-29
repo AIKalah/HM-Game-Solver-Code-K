@@ -15,6 +15,7 @@ public class kalahFunctions {
 	
 	private int doneCount = 0;
 	private int gridArrayLength = 1;
+	public int sum = 0;
 	
 	Runtime runtime = Runtime.getRuntime();
 	
@@ -301,8 +302,9 @@ public class kalahFunctions {
 			}
 		}
 		fillHash(allGrids, allGridsKeys);
+		//limitedfillHash(allGrids, allGridsKeys);
 	}
-	
+
 	/***********************************************
 	 * @param allGrids
 	 * @param allGridsKeys
@@ -331,7 +333,7 @@ public class kalahFunctions {
 					boolean placed = false;
 					//playerOne
 					kalahArrayClass grid = allGridsKeys.get(gridArray[i]);
-					System.out.println("grid.isPlayertwoTurn: "+ grid.isPlayerTwoTurn());
+					//System.out.println("grid.isPlayertwoTurn: "+ grid.isPlayerTwoTurn());
 					if (grid.isPlayerTwoTurn() == false){
 						for (int j = 1; j < (numofcols - 1); j++){
 							if (this.canPlace(grid, 1, j)){
@@ -384,16 +386,16 @@ public class kalahFunctions {
 				if (i % 100000 == 0){
 					System.out.println("Processing " + (i + 1) + " of " + gridArray.length + " keys/grids.");
 				}
-				System.out.println("\ngridArray[" + i + "]: " + (kalahArrayClass) gridArray[i]);
+				/*System.out.println("\ngridArray[" + i + "]: " + (kalahArrayClass) gridArray[i]);
 				System.out.println("allGridsKeys.get(((kalahArrayClass) gridArray[" + i + "])).isProcessed: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed());
-				if (!allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed()){
+				*/if (!allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed()){
 					LinkedList<kalahOption> keyGridList = allGrids.get(gridArray[i]);
 					int scoreCount = 101010101;
 					int processedCount = 0;
 					long childrenCount = 0;
 					for (int j = 0; j < keyGridList.size(); j++)
 					{
-						System.out.println("allGridsKeys.get(keyGridList.get(" + j + ")).isProcessed: " + allGridsKeys.get(keyGridList.get(j).getGrid()).isProcessed());
+						//System.out.println("allGridsKeys.get(keyGridList.get(" + j + ")).isProcessed: " + allGridsKeys.get(keyGridList.get(j).getGrid()).isProcessed());
 						if(allGridsKeys.get(keyGridList.get(j).getGrid()).isProcessed()){
 							keyGridList.get(j).getGrid().setProcessed(true);
 							processedCount++;
@@ -409,8 +411,8 @@ public class kalahFunctions {
 							childrenCount += allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren() + 1;
 						}
 					}
-					System.out.println("Processed Count: " + processedCount + " and Size: " + keyGridList.size());
-					System.out.println("Grid Before: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])));
+					//System.out.println("Processed Count: " + processedCount + " and Size: " + keyGridList.size());
+					//System.out.println("Grid Before: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])));
 					if (processedCount == keyGridList.size()){
 						((kalahArrayClass) gridArray[i]).setProcessed(true);
 						((kalahArrayClass) gridArray[i]).setAverageScore(scoreCount);
@@ -423,119 +425,163 @@ public class kalahFunctions {
 						((kalahArrayClass) gridArray[i]).setProcessed(false);
 						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setProcessed(false);
 					}
-					System.out.println("Grid After: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])));
+					//System.out.println("Grid After: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])));
 				}
 				else{
 					totalProcessed++;
 				}
 			}
-			System.out.println("Total processed: " + totalProcessed + ", Size: " + gridArray.length);
+			//System.out.println("Total processed: " + totalProcessed + ", Size: " + gridArray.length);
 		}
 	
 	}
-	
-	public int smartAIPlayerOne(kalahArrayClass grid, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys,HashMap<kalahArrayClass,LinkedList<smartAIOption>> limGrids ){
-		//initial
-		PriorityQueue <smartAIOption> optionPath = new PriorityQueue <smartAIOption>();
-		//Stack<kalahOption> optionPath = new Stack <kalahOption>;
-		int counter = 0;
-		int score = 0;
-		kalahArrayClass grid2 = grid.clone();
-		if (grid.isPlayerTwoTurn()){
-			LinkedList <smartAIOption> optionPathList = new LinkedList<smartAIOption> ();
-			for (int i = 0; i < optionPath.size() - 1;i++){
-				optionPathList.add(optionPath.remove());
+	public void limitedbuildHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid){
+		if (grid.isPlayerTwoTurn() == false)
+		{
+		for (int i = 1; i < (numofcols - 1); i++)
+		{
+			if (this.canPlace(grid, 1, i))
+			{
+				this.playerOnePlace(grid,1,i,allGrids,allGridsKeys);
 			}
-			limGrids.put(grid2, value)
-			score = grid.getGrid()[0][4];
-			System.out.println("test" + score);
-		   return score;
 		}
-		for (int i = 1; i < numofcols - 1;i++){
-			if (grid.getGrid()[1][i] == (4 - i)){
-				//System.out.println("Print i :"+ i);
-				if (canPlace(grid,1,i)){
-					playerOnePlace(grid, 1, i, allGrids, allGridsKeys);
-					grid2 = allGrids.get(grid).get(counter).getGrid();
-					smartAIOption option = new smartAIOption(grid2, 1, i);
-					optionPath.add(option);
-					counter++;
-					score = smartAIPlayerOne(grid2, allGrids, allGridsKeys,limGrids);
+		}
+		else
+		{
+			for (int i = 1; i < (numofcols - 1); i++)
+			{
+				if (this.canPlace(grid, 0, i))
+				{
+					this.playerTwoPlace(grid,0,i,allGrids,allGridsKeys);
 				}
-				
 			}
-			else if (!canPlace(grid,1,i)){
-				//steals
-				for (int j= 1; j < numofcols - 1;j++){
-					//System.out.println("Print j: "+ j);
-					if (grid.getGrid()[1][j] == (i - j)){
-						if (canPlace(grid,1,j)){
-							playerOnePlace(grid, 1, j, allGrids, allGridsKeys);
-							grid2 = allGrids.get(grid).get(counter).getGrid();
-							kalahOption option = new kalahOption(grid2, 1, j);
-							optionPath.add(option);
-							counter++;
-							score = smartAIPlayerOne(grid2, allGrids, allGridsKeys);
+		}
+		//fillHash(allGrids, allGridsKeys);
+		limitedfillHash(allGrids, allGridsKeys);
+	}
+	
+	public void buildHashStandAlone (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid){
+		if (grid.isPlayerTwoTurn() == false)
+		{
+		for (int i = 1; i < (numofcols - 1); i++)
+		{
+			if (this.canPlace(grid, 1, i))
+			{
+				this.playerOnePlace(grid,1,i,allGrids,allGridsKeys);
+			}
+		}
+		}
+		else
+		{
+			for (int i = 1; i < (numofcols - 1); i++)
+			{
+				if (this.canPlace(grid, 0, i))
+				{
+					this.playerTwoPlace(grid,0,i,allGrids,allGridsKeys);
+				}
+			}
+		}
+	}
+	int level = -1;
+	public void limitedfillHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){         
+		while (this.doneCount < this.gridArrayLength){
+			System.out.println("\n" + this.doneCount + " is less than " + this.gridArrayLength);
+			System.out.println("Free Memory: "+ (runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory()))/1024 );
+			Long freeUsage = runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory())/1024;
+			/*if (freeUsage < 1200000){
+				System.gc();
+			}
+			else {
+				
+			}*/
+			
+			Object[] gridArray = allGrids.keySet().toArray();
+			this.gridArrayLength = gridArray.length;
+			this.doneCount = 0;
+			for(int i = 0; i < this.gridArrayLength; i++) {
+				if (allGrids.get(gridArray[i]).peekFirst() == null)
+				{
+					boolean placed = false;
+					//playerOne
+					kalahArrayClass grid = allGridsKeys.get(gridArray[i]);
+					//System.out.println("grid.isPlayertwoTurn: "+ grid.isPlayerTwoTurn());
+					if (grid.isPlayerTwoTurn() == false){
+						for (int j = 1; j < (numofcols - 1); j++){
+							if (grid.getGrid()[1][j] == ((numofcols - 1) - j)){
+									if (this.canPlace(grid, 1, j)){
+										this.playerOnePlace(grid,1,j,allGrids,allGridsKeys);
+										placed = true;
+									}
+							}
+						}
+						
+						for (int j = 1; j < (numofcols - 1); j++){
+							if (!canPlace(grid,1,j)  && grid.getGrid()[0][j] != 0){
+								for (int k= 1; k < numofcols - 1;k++){
+									if (grid.getGrid()[1][k] == (j - k)){
+										if (this.canPlace(grid, 1, k))
+										{
+										this.playerOnePlace(grid,1,k,allGrids,allGridsKeys);
+										placed = true;
+										}
+									}
+								}
+							 }
+						}
+					}
+					//playerTwo grid.getGrid()[1][j] != 0
+					else{
+						for (int j = 1; j < numofcols - 1;j++){
+							if (grid.getGrid()[0][j] - j == (0)){
+								if (this.canPlace(grid, 0, j)){
+									this.playerTwoPlace(grid,0,j,allGrids,allGridsKeys);
+									placed = true;
+								}
+							}
+						}
+							
+						for (int j = 1; j < (numofcols - 1); j++){
+							if (!canPlace(grid,0,j) && grid.getGrid()[1][j] != 0){
+								for (int k = 1; k < (numofcols - 1); k++){
+									if (grid.getGrid()[0][k] == k - j){
+										if (this.canPlace(grid, 0, k)){
+											this.playerTwoPlace(grid,0,k,allGrids,allGridsKeys);
+											placed = true;
+										}
+									}
+								}
+							}
+							
+							
+						}
+						
+					}
+					
+					if (!placed)
+					{
+						kalahArrayClass tempGrid = (kalahArrayClass) gridArray[i];
+						int compareScore = tempGrid.getGrid()[0][0] + tempGrid.getGrid()[numofrows - 1][numofcols - 1];
+						if (compareScore != sum){
+							buildHashStandAlone(allGrids, allGridsKeys, allGridsKeys.get(gridArray[i]));
+						}
+						else {
+							kalahOption option = new kalahOption((kalahArrayClass)gridArray[i],0,0);
+							allGrids.get(gridArray[i]).add(option);
+							((kalahArrayClass) gridArray[i]).setGameOver(true);
+							((kalahArrayClass) gridArray[i]).setProcessed(true);
 						}
 						
 					}
 				}
+				else
+				{
 				
-				
-				
-			}
-			
-			
-		}
-		return score;
-	}
-	
-	public int smartAIPlayerTwo(kalahArrayClass grid, HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, HashMap<kalahArrayClass,LinkedList<smartAIOption>> limGrids){
-		//initial
-		Stack<kalahArrayClass> optionPath = null;
-		int counter = 0;
-		int score = 0;
-		kalahArrayClass grid2 = grid.clone();
-		if (!grid.isPlayerTwoTurn()){
-			score = grid.getGrid()[0][0];
-			System.out.println("test" + score);
-		   return score;
-		}
-		for (int i = 1; i < numofcols - 1;i++){
-			if (grid.getGrid()[0][i] - i == (0)){
-				//System.out.println("Print i :"+ i);
-				if (canPlace(grid,0,i)){
-					playerTwoPlace(grid, 0, i, allGrids, allGridsKeys);
-					grid2 = allGrids.get(grid).get(counter).getGrid();
-					optionPath.push(grid2);
-					counter++;
-					score = smartAIPlayerTwo(grid2, allGrids, allGridsKeys, limGrids);
+					//System.out.println(i + " is not null");
+					this.doneCount++;
 				}
-				
 			}
-			else if (!canPlace(grid,0,i)){
-				//steals
-				for (int j= 1; j < numofcols - 1;j++){
-					//System.out.println("Print j: "+ j);
-					if (grid.getGrid()[0][j] == (j - i)){
-						if (canPlace(grid,0,j)){
-							playerTwoPlace(grid, 0, j, allGrids, allGridsKeys);
-							grid2 = allGrids.get(grid).get(counter).getGrid();
-							optionPath.push(grid2);
-							counter++;
-							score = smartAIPlayerTwo(grid2, allGrids, allGridsKeys,limGrids);
-						}
-						
-					}
-				}
-				
-				
-				
-			}
-			
-			
+			level++;
 		}
-		return score;
+		//processHash(allGrids, allGridsKeys);
 	}
-	
 }
