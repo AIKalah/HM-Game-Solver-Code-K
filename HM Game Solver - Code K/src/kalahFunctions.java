@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class kalahFunctions {
 	public static int numofrows = 2;
-	public static int numofcols = 5; 
+	public static int numofcols = 8; 
 	public static int numofseeds = 3;
 	private boolean checkEveryMove = false;
 	//public static byte currentseeds;
@@ -383,12 +383,12 @@ public class kalahFunctions {
 			System.out.println("\n" + this.doneCount + " is less than " + this.gridArrayLength);
 			System.out.println("Free Memory: "+ (runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory()))/1024 );
 			Long freeUsage = runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory())/1024;
-			/*if (freeUsage < 1200000){
+			if (freeUsage < 1200000){
 				System.gc();
 			}
 			else {
 				
-			}*/
+			}
 			
 			Object[] gridArray = allGrids.keySet().toArray();
 			this.gridArrayLength = gridArray.length;
@@ -399,7 +399,7 @@ public class kalahFunctions {
 					boolean placed = false;
 					//playerOne
 					kalahArrayClass grid = allGridsKeys.get(gridArray[i]);
-					System.out.println("grid.isPlayertwoTurn: "+ grid.isPlayerTwoTurn());
+					//System.out.println("grid.isPlayertwoTurn: "+ grid.isPlayerTwoTurn());
 					if (grid.isPlayerTwoTurn() == false){
 						for (int j = 1; j < (numofcols - 1); j++){
 							if (this.canPlace(grid, 1, j)){
@@ -473,8 +473,8 @@ public class kalahFunctions {
 				if (i % 100000 == 0){
 					System.out.println("Processing " + (i + 1) + " of " + gridArray.length + " keys/grids.");
 				}
-				System.out.println("\ngridArray[" + i + "]: " + (kalahArrayClass) gridArray[i]);
-				System.out.println("allGridsKeys.get(((kalahArrayClass) gridArray[" + i + "])).isProcessed: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed());
+				//System.out.println("\ngridArray[" + i + "]: " + (kalahArrayClass) gridArray[i]);
+				//System.out.println("allGridsKeys.get(((kalahArrayClass) gridArray[" + i + "])).isProcessed: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed());
 				if (!allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed()){
 					LinkedList<kalahOption> keyGridList = allGrids.get(gridArray[i]);
 					int winCount = 0;
@@ -485,7 +485,7 @@ public class kalahFunctions {
 					long childrenCount = 0;
 					for (int j = 0; j < keyGridList.size(); j++)
 					{
-						System.out.println("allGridsKeys.get(keyGridList.get(" + j + ")).isProcessed: " + allGridsKeys.get(keyGridList.get(j).getGrid()).isProcessed());
+						//System.out.println("allGridsKeys.get(keyGridList.get(" + j + ")).isProcessed: " + allGridsKeys.get(keyGridList.get(j).getGrid()).isProcessed());
 						if(allGridsKeys.get(keyGridList.get(j).getGrid()).isProcessed()){
 							keyGridList.get(j).getGrid().setProcessed(true);
 							processedCount++;
@@ -512,8 +512,8 @@ public class kalahFunctions {
 							childrenCount += allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren() + 1;
 						}
 					}
-					System.out.println("Processed Count: " + processedCount + " and Size: " + keyGridList.size());
-					System.out.println("Grid Before: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])));
+					//System.out.println("Processed Count: " + processedCount + " and Size: " + keyGridList.size());
+					//System.out.println("Grid Before: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])));
 					if (processedCount == keyGridList.size()){
 						if (winCount == keyGridList.size()){
 							allGridsKeys.get(((kalahArrayClass) gridArray[i])).setState("WIN");
@@ -543,13 +543,13 @@ public class kalahFunctions {
 						((kalahArrayClass) gridArray[i]).setProcessed(false);
 						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setProcessed(false);
 					}
-					System.out.println("Grid After: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])));
+					//System.out.println("Grid After: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])));
 				}
 				else{
 					totalProcessed++;
 				}
 			}
-			System.out.println("Total processed: " + totalProcessed + ", Size: " + gridArray.length);
+			//System.out.println("Total processed: " + totalProcessed + ", Size: " + gridArray.length);
 		}
 	}
 	
