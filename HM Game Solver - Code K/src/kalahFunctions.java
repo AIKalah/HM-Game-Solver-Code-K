@@ -625,7 +625,7 @@ public class kalahFunctions {
 					//System.out.println("grid.isPlayertwoTurn: "+ grid.isPlayerTwoTurn());
 					if (grid.isPlayerTwoTurn() == false){
 						for (int j = 1; j < (numofcols - 1); j++){
-							if (grid.getGrid()[1][j] == ((numofcols - 1) - j)){
+							if (grid.getGrid()[1][j] == ((numofcols - 1) - j) || grid.getGrid()[1][j] == ((numofcols) - j) + ((numofcols - 1) + (numofcols - 2)) ){
 									if (this.canPlace(grid, 1, j)){
 										this.playerOnePlace(grid,1,j,allGrids,allGridsKeys);
 										placed = true;
@@ -636,7 +636,7 @@ public class kalahFunctions {
 						for (int j = 1; j < (numofcols - 1); j++){
 							if (!canPlace(grid,1,j)  && grid.getGrid()[0][j] != 0){
 								for (int k= 1; k < numofcols - 1;k++){
-									if (grid.getGrid()[1][k] == (j - k)){
+									if (grid.getGrid()[1][k] == (j - k) || (grid.getGrid()[1][k] - ((numofcols - 1) - k)) - (numofcols - 2) == j){
 										if (this.canPlace(grid, 1, k))
 										{
 										this.playerOnePlace(grid,1,k,allGrids,allGridsKeys);
@@ -650,7 +650,7 @@ public class kalahFunctions {
 					//playerTwo grid.getGrid()[1][j] != 0
 					else{
 						for (int j = 1; j < numofcols - 1;j++){
-							if (grid.getGrid()[0][j] - j == (0)){
+							if (grid.getGrid()[0][j] - j == (0) || (grid.getGrid()[0][j] - j) - ((numofcols - 1) + (numofcols -2)) == (0)){
 								if (this.canPlace(grid, 0, j)){
 									this.playerTwoPlace(grid,0,j,allGrids,allGridsKeys);
 									placed = true;
@@ -661,7 +661,7 @@ public class kalahFunctions {
 						for (int j = 1; j < (numofcols - 1); j++){
 							if (!canPlace(grid,0,j) && grid.getGrid()[1][j] != 0){
 								for (int k = 1; k < (numofcols - 1); k++){
-									if (grid.getGrid()[0][k] == k - j){
+									if (grid.getGrid()[0][k] == k - j ||( (numofcols - 1) - ( (grid.getGrid()[0][k] - k) - (numofcols -2 ) ) ) == j){
 										if (this.canPlace(grid, 0, k)){
 											this.playerTwoPlace(grid,0,k,allGrids,allGridsKeys);
 											placed = true;
