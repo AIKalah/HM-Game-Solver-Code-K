@@ -9,7 +9,6 @@ import java.util.Random;
 public class KMain {
 	
 	public static byte [][] gridInit = new byte[][] { 
-	
 	{0,3,3,3,3,3,3,0},
 	{0,3,3,3,3,3,3,0}
 	};
@@ -235,7 +234,8 @@ public class KMain {
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
-					grid2.setTurnCounter((byte) 1);
+					//grid2.setTurnCounter((byte) 1);
+					grid2.reset();
 				}
 				else if (!wePlayerOne){
 					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
@@ -243,7 +243,8 @@ public class KMain {
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
-					grid2.setTurnCounter((byte) 1);
+					//grid2.setTurnCounter((byte) 1);
+					grid2.reset();
 				}
 			}
 			else if (command.equals("ls")){
@@ -262,7 +263,8 @@ public class KMain {
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
-					grid2.setTurnCounter((byte) 1);
+					//grid2.setTurnCounter((byte) 1);
+					grid2.reset();
 				}
 				else if (!wePlayerOne){
 					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
@@ -270,7 +272,8 @@ public class KMain {
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
-					grid2.setTurnCounter((byte) 1);
+					//grid2.setTurnCounter((byte) 1);
+					grid2.reset();
 				}
 			
 			}
@@ -301,7 +304,8 @@ public class KMain {
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
-					grid2.setTurnCounter((byte) 1);
+					//grid2.setTurnCounter((byte) 1);
+					grid2.reset();
 				}
 				else if (!wePlayerOne){
 					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
@@ -309,7 +313,8 @@ public class KMain {
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
-					grid2.setTurnCounter((byte) 1);
+					//grid2.setTurnCounter((byte) 1);
+					grid2.reset();
 				}
 			}
 			else if (command.equals("m")){
@@ -319,7 +324,8 @@ public class KMain {
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
-					grid2.setTurnCounter((byte) 1);
+					//grid2.setTurnCounter((byte) 1);
+					grid2.reset();
 				}
 				else if (!wePlayerOne){
 					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
@@ -327,7 +333,8 @@ public class KMain {
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
-					grid2.setTurnCounter((byte) 1);
+					//grid2.setTurnCounter((byte) 1);
+					grid2.reset();
 				}
 			}
 			else{

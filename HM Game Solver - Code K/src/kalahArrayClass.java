@@ -25,6 +25,17 @@ public class kalahArrayClass {
 		setTurnCounter((byte)1);
 	}
 	
+	public void reset(){
+		setGameOver(false);
+		setProcessed(false);
+		setState("UNKNOWN");
+		setTotalChildren(0);
+		setWinResults(0);
+		setLossResults(0);
+		setTieResults(0);
+		setTurnCounter((byte)1);
+	}
+	
 	public byte[][] getGrid() {
 		return this.grid;
 	}
