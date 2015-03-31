@@ -22,7 +22,7 @@ public class kalahArrayClass {
 		setWinResults(0);
 		setLossResults(0);
 		setTieResults(0);
-		setTurnCounter((byte)0);
+		setTurnCounter((byte)1);
 	}
 	
 	public byte[][] getGrid() {

@@ -158,6 +158,9 @@ public class kalahFunctions {
 			if (clonedGrid.isProcessed() == false && clonedGrid.isPlayerTwoTurn() == true){
 				clonedGrid.setTurnCounter((byte) (grid.getTurnCounter()+1));
 			}
+			else{
+				clonedGrid.setTurnCounter((byte) (grid.getTurnCounter()));
+			}
 			
 				//System.out.println("\n" + clonedGrid);
 				kalahOption option = new kalahOption(clonedGrid, pitRow, pitCol);
@@ -316,6 +319,9 @@ public class kalahFunctions {
 			
 			if (clonedGrid.isProcessed() == false && clonedGrid.isPlayerTwoTurn() == false){
 				clonedGrid.setTurnCounter((byte) (grid.getTurnCounter()+1));
+			}
+			else{
+				clonedGrid.setTurnCounter((byte) (grid.getTurnCounter()));
 			}
 			
 				//System.out.println("\n" + clonedGrid);
@@ -645,7 +651,7 @@ public class kalahFunctions {
 			this.doneCount = 0;
 			for(int i = 0; i < this.gridArrayLength; i++) {
 				//System.out.println("TC: " + (allGridsKeys.get(gridArray[i]).getTurnCounter() < 7));
-				if (allGrids.get(gridArray[i]).peekFirst() == null && allGridsKeys.get(gridArray[i]).getTurnCounter() < 7)
+				if (allGrids.get(gridArray[i]).peekFirst() == null && allGridsKeys.get(gridArray[i]).getTurnCounter() < 4) //2 for ours, 3 for both turns, 4 for both plus ours
 				{
 					boolean placed = false;
 					//playerOne
