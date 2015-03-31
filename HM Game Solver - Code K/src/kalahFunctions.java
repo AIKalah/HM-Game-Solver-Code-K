@@ -902,8 +902,8 @@ public class kalahFunctions {
 		}
 	}
 	
-	public String limitedFindMove (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass currentBoard){
-		String theMove = "";
+	public kalahOption limitedFindMove (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass currentBoard){
+		kalahOption theMove = null;
 		boolean foundMove = false;
 		float bestScore = 0;
 		LinkedList<kalahOption> keyGridList = allGrids.get(currentBoard);
@@ -916,7 +916,7 @@ public class kalahFunctions {
 					float AS = allGridsKeys.get(keyGridList.get(j).getGrid()).getAverageScore();
 					if (AS > bestScore){
 						bestScore = AS;
-						theMove = keyGridList.get(j).toString();
+						theMove = keyGridList.get(j);
 						foundMove = true;
 					}
 				}
@@ -931,7 +931,7 @@ public class kalahFunctions {
 				float AS = allGridsKeys.get(keyGridList.get(j).getGrid()).getAverageScore();
 				if (AS > bestScore){
 					bestScore = AS;
-					theMove = keyGridList.get(j).toString();
+					theMove = keyGridList.get(j);
 					foundMove = true;
 				}
 			}

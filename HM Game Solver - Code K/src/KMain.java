@@ -207,7 +207,11 @@ public class KMain {
 		
 		System.out.println("\nRoot: " + allGridsKeys.get(grid));
 		System.out.println("\nHashmap Size: " + allGridsKeys.size());
-		String move = functions.limitedFindMove(allGrids, allGridsKeys, grid.clone());
-		System.out.println("The move: " + move);
+		
+		while (grid.isPlayerTwoTurn() != wePlayerOne) {
+			kalahOption move = functions.limitedFindMove(allGrids, allGridsKeys, grid.clone());
+			System.out.println("\nThe move: " + move);
+			grid = allGridsKeys.get(move.getGrid());
+		}
 	}
 }
