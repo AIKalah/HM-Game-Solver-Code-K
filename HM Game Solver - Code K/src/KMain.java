@@ -193,6 +193,7 @@ public class KMain {
 		System.out.println(seedsRemain);
 
 		functions.limitedbuildHash(allGrids, allGridsKeys, grid.clone(), (byte) 2);
+		
 		//functions.buildHash(allGrids, allGridsKeys, grid.clone());
 		
 		if (print == true){
@@ -206,5 +207,7 @@ public class KMain {
 		
 		System.out.println("\nRoot: " + allGridsKeys.get(grid));
 		System.out.println("\nHashmap Size: " + allGridsKeys.size());
+		String move = functions.limitedFindMove(allGrids, allGridsKeys, grid.clone());
+		System.out.println("The move: " + move);
 	}
 }

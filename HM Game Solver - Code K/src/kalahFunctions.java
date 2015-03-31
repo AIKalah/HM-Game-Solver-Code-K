@@ -901,6 +901,98 @@ public class kalahFunctions {
 			//System.out.println("Total processed: " + totalProcessed + ", Size: " + gridArray.length);
 		}
 	}
+	
+	public String limitedFindMove (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass currentBoard){
+		String theMove = "";
+		boolean foundMove = false;
+		float bestRatio = 0;
+		LinkedList<kalahOption> keyGridList = allGrids.get(currentBoard);
+
+		if (!foundMove){
+			for (int j = 0; j < keyGridList.size(); j++)
+			{
+				//Try for win
+				if(allGridsKeys.get(keyGridList.get(j).getGrid()).getState().equals("WIN")){
+					theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+					foundMove = true;
+					break;
+				}
+			}
+		}
+
+		if (!foundMove){
+			bestRatio = 0;
+			for (int j = 0; j < keyGridList.size(); j++)
+			{
+				//Try for lossless mixed = wins + ties
+				if(allGridsKeys.get(keyGridList.get(j).getGrid()).getState().equals("MIXED") && allGridsKeys.get(keyGridList.get(j).getGrid()).getLossResults() == 0){
+					long w = allGridsKeys.get(keyGridList.get(j).getGrid()).getWinResults();
+					long t = allGridsKeys.get(keyGridList.get(j).getGrid()).getTieResults();
+					long l = allGridsKeys.get(keyGridList.get(j).getGrid()).getLossResults();
+					if ((w+(t/2))/(w+t+l) > bestRatio){
+						bestRatio = (w+(t/2))/(w+t+l);
+						theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+						foundMove = true;
+					}
+				}
+			}
+		}
+
+		if (!foundMove){
+			bestRatio = 0;
+			for (int j = 0; j < keyGridList.size(); j++)
+			{
+				//Try for other mixed
+				if(allGridsKeys.get(keyGridList.get(j).getGrid()).getState().equals("MIXED")){
+					long w = allGridsKeys.get(keyGridList.get(j).getGrid()).getWinResults();
+					long t = allGridsKeys.get(keyGridList.get(j).getGrid()).getTieResults();
+					long l = allGridsKeys.get(keyGridList.get(j).getGrid()).getLossResults();
+					if ((w+(t/2))/(w+t+l) > bestRatio){
+						bestRatio = (w+(t/2))/(w+t+l);
+						theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+						foundMove = true;
+					}
+				}
+			}
+		}
+
+		if (!foundMove){
+			for (int j = 0; j < keyGridList.size(); j++)
+			{
+				//Try for unknown
+				if(allGridsKeys.get(keyGridList.get(j).getGrid()).getState().equals("UNKNOWN")){
+					theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+					foundMove = true;
+					break;
+				}
+			}
+		}
+		
+		if (!foundMove){
+			for (int j = 0; j < keyGridList.size(); j++)
+			{
+				//Try for tie
+				if(allGridsKeys.get(keyGridList.get(j).getGrid()).getState().equals("TIE")){
+					theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+					foundMove = true;
+					break;
+				}
+			}
+		}
+
+		if (!foundMove){
+			for (int j = 0; j < keyGridList.size(); j++)
+			{
+				//Try for loss
+				if(allGridsKeys.get(keyGridList.get(j).getGrid()).getState().equals("LOSS")){
+					theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+					foundMove = true;
+					break;
+				}
+			}
+		}
+		return theMove;
+	}
 
 	public String findMove (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass currentBoard){
 		String theMove = "";
