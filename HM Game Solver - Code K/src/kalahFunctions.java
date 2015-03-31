@@ -742,6 +742,7 @@ public class kalahFunctions {
 									}
 								}
 							}
+							allGridsKeys.get(gridArray[i]).setAverageScore(((kalahArrayClass) gridArray[i]).getScoreDifference());
 							((kalahArrayClass) gridArray[i]).setProcessed(true);
 						}
 						
@@ -781,6 +782,7 @@ public class kalahFunctions {
 						}
 					}
 				}
+				allGridsKeys.get(gridArray[i]).setAverageScore(((kalahArrayClass) gridArray[i]).getScoreDifference());
 				allGridsKeys.get(gridArray[i]).setProcessed(true);
 			}
 		}
@@ -806,7 +808,7 @@ public class kalahFunctions {
 					int winCount = 0;
 					int lossCount = 0;
 					int tieCount = 0;
-					int scoreCount = 0;
+					float scoreCount = 0;
 					int processedCount = 0;
 					long childrenCount = 0;
 					long winResults = 0;//allGridsKeys.get(((kalahArrayClass) gridArray[i])).getWinResults();
