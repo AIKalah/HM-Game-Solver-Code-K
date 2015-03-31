@@ -905,6 +905,43 @@ public class kalahFunctions {
 	public String limitedFindMove (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass currentBoard){
 		String theMove = "";
 		boolean foundMove = false;
+		float bestScore = 0;
+		LinkedList<kalahOption> keyGridList = allGrids.get(currentBoard);
+
+		if (!foundMove){
+			for (int j = 0; j < keyGridList.size(); j++)
+			{
+				//Try for win
+				if(allGridsKeys.get(keyGridList.get(j).getGrid()).getState().equals("WIN")){
+					float AS = allGridsKeys.get(keyGridList.get(j).getGrid()).getAverageScore();
+					if (AS > bestScore){
+						bestScore = AS;
+						theMove = keyGridList.get(j).toString();
+						foundMove = true;
+					}
+				}
+			}
+		}
+
+		if (!foundMove){
+			bestScore = 0;
+			for (int j = 0; j < keyGridList.size(); j++)
+			{
+				//Try for best average score
+				float AS = allGridsKeys.get(keyGridList.get(j).getGrid()).getAverageScore();
+				if (AS > bestScore){
+					bestScore = AS;
+					theMove = keyGridList.get(j).toString();
+					foundMove = true;
+				}
+			}
+		}
+		return theMove;
+	}
+
+	public String findMove (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass currentBoard){
+		String theMove = "";
+		boolean foundMove = false;
 		float bestRatio = 0;
 		LinkedList<kalahOption> keyGridList = allGrids.get(currentBoard);
 
@@ -991,97 +1028,6 @@ public class kalahFunctions {
 				}
 			}
 		}
-		return theMove;
-	}
-
-	public String findMove (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass currentBoard){
-		String theMove = "";
-		/*byte moveRow1 = 1;
-		byte moveRow2 = 1;
-		byte moveCol1 = 1;
-		byte moveCol2 = 1;
-		boolean canWin = allGridsKeys.get(currentBoard).getWin();
-		
-		if(canWin){
-			//Search for L with least children
-			LinkedList<Option> keyGridList = allGrids.get(currentBoard);
-			long leastChildren = Long.MAX_VALUE;
-			int leastChildrenIndex = 0;
-			for (int i = 0; i < keyGridList.size(); i++){
-				if(!keyGridList.get(i).getGrid().getWin()){
-					if (keyGridList.get(i).getGrid().getTotalChildren() < leastChildren){
-						leastChildren = keyGridList.get(i).getGrid().getTotalChildren();
-						leastChildrenIndex = i;
-					}
-				}
-			}
-			moveRow1 += (keyGridList.get(leastChildrenIndex).getRowOne());
-			moveRow2 += (keyGridList.get(leastChildrenIndex).getRowTwo());
-			moveCol1 += (keyGridList.get(leastChildrenIndex).getColOne());
-			moveCol2 += (keyGridList.get(leastChildrenIndex).getColTwo());
-		}
-		else{
-			//Search for W with highest ratio then most children
-			LinkedList<Option> keyGridList = allGrids.get(currentBoard);
-			float highestRatio = 0;
-			long mostChildren = 0;
-			int mostChildrenIndex = 0;
-			for (int i = 0; i < keyGridList.size(); i++){
-				if (keyGridList.get(i).getGrid().getWinningRatio() > highestRatio){
-					highestRatio = keyGridList.get(i).getGrid().getWinningRatio();
-					mostChildren = keyGridList.get(i).getGrid().getTotalChildren();
-					mostChildrenIndex = i;
-				}
-				else if(keyGridList.get(i).getGrid().getWinningRatio() == highestRatio){
-					if (keyGridList.get(i).getGrid().getTotalChildren() > mostChildren){
-						highestRatio = keyGridList.get(i).getGrid().getWinningRatio();
-						mostChildren = keyGridList.get(i).getGrid().getTotalChildren();
-						mostChildrenIndex = i;
-					}
-				}
-			}
-			moveRow1 += (keyGridList.get(mostChildrenIndex).getRowOne());
-			moveRow2 += (keyGridList.get(mostChildrenIndex).getRowTwo());
-			moveCol1 += (keyGridList.get(mostChildrenIndex).getColOne());
-			moveCol2 += (keyGridList.get(mostChildrenIndex).getColTwo());
-		}
-	
-		 switch (moveCol1) {
-		  	case 1:
-		  		theMove = "A" + moveRow1;
-		  		break;
-		  	case 2:
-		  		theMove = "B" + moveRow1;
-		  		break;
-		 	case 3:
-		 		theMove = "C" + moveRow1;
-		 		break;
-		 	case 4:
-		 		theMove = "D" + moveRow1;
-		 		break;
-		 	case 5:
-		 		theMove = "E" + moveRow1;
-		 		break;
-		}
-		 
-		switch (moveCol2) {
-		  	case 1:
-		  		theMove += "A" + moveRow2;
-		  		break;
-		  	case 2:
-		  		theMove += "B" + moveRow2;
-		  		break;
-		 	case 3:
-		 		theMove += "C" + moveRow2;
-		 		break;
-		 	case 4:
-		 		theMove += "D" + moveRow2;
-		 		break;
-		 	case 5:
-		 		theMove += "E" + moveRow2;
-		 		break;
-		}*/
-		
 		return theMove;
 	}
 	
