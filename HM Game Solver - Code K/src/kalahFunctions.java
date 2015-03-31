@@ -761,7 +761,7 @@ public class kalahFunctions {
 		this.gridArrayLength = gridArray.length;
 		for(int i = 0; i < this.gridArrayLength; i++) {
 			if (allGridsKeys.get(gridArray[i]).getTurnCounter() == limit){
-				if (((kalahArrayClass) gridArray[i]).getScoreDifference() == 0){
+				/*if (((kalahArrayClass) gridArray[i]).getScoreDifference() == 0){
 					((kalahArrayClass) gridArray[i]).setState("TIE");
 				}
 				else{
@@ -781,7 +781,7 @@ public class kalahFunctions {
 							((kalahArrayClass) gridArray[i]).setState("LOSS");
 						}
 					}
-				}
+				}*/
 				allGridsKeys.get(gridArray[i]).setAverageScore(((kalahArrayClass) gridArray[i]).getScoreDifference());
 				allGridsKeys.get(gridArray[i]).setProcessed(true);
 			}
@@ -851,7 +851,7 @@ public class kalahFunctions {
 								}
 							}
 							//Sum scores only of game over boards? Sum over boards too for a divisor
-							scoreCount += keyGridList.get(j).getGrid().getScoreDifference();
+							scoreCount += keyGridList.get(j).getGrid().getAverageScore();
 							childrenCount += allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren() + 1;
 						}
 					}
