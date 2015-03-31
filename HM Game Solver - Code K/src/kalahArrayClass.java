@@ -7,6 +7,10 @@ public class kalahArrayClass {
 	String state;
 	float averageScore;
 	long totalChildren;
+	long winResults;
+	long lossResults;
+	long tieResults;
+	byte turnCounter;
 
 	public kalahArrayClass(byte[][] gridInit, boolean playerTurn, boolean gameOver, boolean processed) {
 		setGrid(gridInit);
@@ -14,6 +18,11 @@ public class kalahArrayClass {
 		setGameOver(gameOver);
 		setProcessed(processed);
 		setState("UNKNOWN");
+		setTotalChildren(0);
+		setWinResults(0);
+		setLossResults(0);
+		setTieResults(0);
+		setTurnCounter((byte)0);
 	}
 	
 	public byte[][] getGrid() {
@@ -57,12 +66,12 @@ public class kalahArrayClass {
 	}
 	
 	public int getPlayerOneScore(){
-		return this.grid[0][grid[0].length-4];
+		return this.grid[0][KMain.numofcols-1];
 	}
 	
 	public void setPlayerOneScore(byte score){
-		this.grid[0][grid[0].length-4] = score;
-		this.grid[1][grid[0].length-4] = score;
+		this.grid[0][KMain.numofcols-1] = score;
+		this.grid[1][KMain.numofcols-1] = score;
 	}
 	
 	public int getPlayerTwoScore(){
@@ -101,6 +110,38 @@ public class kalahArrayClass {
 	
 	public void setState(String state){
 		this.state = state;
+	}
+	
+	public long getWinResults() {
+		return this.winResults;
+	}
+
+	public void setWinResults(long winResults) {
+		this.winResults = winResults;
+	}
+	
+	public long getLossResults() {
+		return this.lossResults;
+	}
+
+	public void setLossResults(long lossResults) {
+		this.lossResults = lossResults;
+	}
+	
+	public long getTieResults() {
+		return this.tieResults;
+	}
+
+	public void setTieResults(long tieResults) {
+		this.tieResults = tieResults;
+	}
+	
+	public byte getTurnCounter() {
+		return this.turnCounter;
+	}
+
+	public void setTurnCounter(byte turnCounter) {
+		this.turnCounter = turnCounter;
 	}
 	
 	/*
@@ -181,6 +222,10 @@ public class kalahArrayClass {
 		  returnString += ", C: " + this.totalChildren;
 		  returnString += ", G: " + this.gameOver;
 		  returnString += ", S: " + this.state;
+		  returnString += ", WR: " + this.getWinResults();
+		  returnString += ", LR: " + this.getLossResults();
+		  returnString += ", TR: " + this.getTieResults();
+		  returnString += ", TC: " + this.getTurnCounter();
 		  return returnString;
 		}
 	

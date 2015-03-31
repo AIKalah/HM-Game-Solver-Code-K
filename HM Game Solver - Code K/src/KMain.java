@@ -10,8 +10,8 @@ public class KMain {
 	
 	public static byte [][] gridInit = new byte[][] { 
 	
-	{0,3,3,3,3,3,3,0},
-	{0,3,3,3,3,3,3,0}
+	{0,1,1,1,0,3,3,0},
+	{0,1,2,1,0,3,3,0}
 	};
 	
 	
@@ -21,7 +21,7 @@ public class KMain {
 	public static kalahArrayClass grid2 = new kalahArrayClass(gridInit, false, false, false);
 	
 	public static int numofrows = 2;
-	public static int numofcols = 8; 
+	public static int numofcols = 5; 
 	public static int numofseeds = 3;
 	//This is for you Chris
 	public static boolean wePlayerOne = true;
@@ -191,7 +191,9 @@ public class KMain {
 			System.out.println(grid2);
 		}
 		System.out.println(seedsRemain);
-		functions.limitedbuildHash(allGrids, allGridsKeys, grid2);
+
+		functions.limitedbuildHash(allGrids, allGridsKeys, grid.clone());
+		//functions.buildHash(allGrids, allGridsKeys, grid.clone());
 		
 		if (print == true){
 			System.out.println("\n\n\nPrint out from hashmap now:");
