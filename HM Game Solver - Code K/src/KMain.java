@@ -192,7 +192,7 @@ public class KMain {
 		}
 		System.out.println(seedsRemain);
 
-		functions.limitedbuildHash(allGrids, allGridsKeys, grid.clone(), (byte) 4);
+		functions.limitedbuildHash(allGrids, allGridsKeys, grid.clone(), (byte) 2);
 		//functions.buildHash(allGrids, allGridsKeys, grid.clone());
 		
 		if (print == true){

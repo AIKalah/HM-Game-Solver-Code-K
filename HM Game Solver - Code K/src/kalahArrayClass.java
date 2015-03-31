@@ -222,6 +222,7 @@ public class kalahArrayClass {
 		  returnString += ", C: " + this.totalChildren;
 		  returnString += ", G: " + this.gameOver;
 		  returnString += ", S: " + this.state;
+		  returnString += ", AS: " + this.getAverageScore();
 		  returnString += ", WR: " + this.getWinResults();
 		  returnString += ", LR: " + this.getLossResults();
 		  returnString += ", TR: " + this.getTieResults();
