@@ -585,7 +585,7 @@ public class kalahFunctions {
 			//System.out.println("Total processed: " + totalProcessed + ", Size: " + gridArray.length);
 		}
 	}
-	public void limitedbuildHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid){
+	public void limitedbuildHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid, byte limit){
 		if (grid.isPlayerTwoTurn() == false)
 		{
 		for (int i = 1; i < (numofcols - 1); i++)
@@ -607,7 +607,7 @@ public class kalahFunctions {
 			}
 		}
 		//fillHash(allGrids, allGridsKeys);
-		limitedfillHash(allGrids, allGridsKeys);
+		limitedfillHash(allGrids, allGridsKeys, limit);
 	}
 	
 	public void buildHashStandAlone (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid){
@@ -632,9 +632,9 @@ public class kalahFunctions {
 			}
 		}
 	}
-	int level = -1;
+	
 	public int sum;
-	public void limitedfillHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){         
+	public void limitedfillHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, byte limit){         
 		while (this.doneCount < this.gridArrayLength){
 			System.out.println("\n" + this.doneCount + " is less than " + this.gridArrayLength);
 			System.out.println("Free Memory: "+ (runtime.freeMemory() + (runtime.maxMemory() - runtime.totalMemory()))/1024 );
@@ -651,7 +651,7 @@ public class kalahFunctions {
 			this.doneCount = 0;
 			for(int i = 0; i < this.gridArrayLength; i++) {
 				//System.out.println("TC: " + (allGridsKeys.get(gridArray[i]).getTurnCounter() < 7));
-				if (allGrids.get(gridArray[i]).peekFirst() == null && allGridsKeys.get(gridArray[i]).getTurnCounter() < 4) //2 for ours, 3 for both turns, 4 for both plus ours
+				if (allGrids.get(gridArray[i]).peekFirst() == null && allGridsKeys.get(gridArray[i]).getTurnCounter() < limit) //2 for ours, 3 for both turns, 4 for both plus ours
 				{
 					boolean placed = false;
 					//playerOne
@@ -754,9 +754,41 @@ public class kalahFunctions {
 					this.doneCount++;
 				}
 			}
-			level++;
 		}
-		processHash(allGrids, allGridsKeys);
+		
+		Object[] gridArray = allGrids.keySet().toArray();
+		this.gridArrayLength = gridArray.length;
+		for(int i = 0; i < this.gridArrayLength; i++) {
+			if (allGridsKeys.get(gridArray[i]).getTurnCounter() == limit){
+				allGridsKeys.get(gridArray[i]).setProcessed(true);
+			}
+		}
+		
+		//limitedProcessHash(allGrids, allGridsKeys);
+	}
+	
+	public void limitedProcessHash (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys){
+		System.out.println("Processing Limited Hashes");
+		Object[] gridArray = allGrids.keySet().toArray();
+		this.gridArrayLength = gridArray.length;
+		int totalProcessed = 0;
+		while (totalProcessed < gridArray.length){
+			totalProcessed = 0;
+			for(int i = 0; i < this.gridArrayLength; i++) {
+				if (i % 100000 == 0){
+					System.out.println("Processing " + (i + 1) + " of " + gridArray.length + " keys/grids.");
+				}
+				//System.out.println("\ngridArray[" + i + "]: " + (kalahArrayClass) gridArray[i]);
+				//System.out.println("allGridsKeys.get(((kalahArrayClass) gridArray[" + i + "])).isProcessed: " + allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed());
+				if (!allGridsKeys.get(((kalahArrayClass) gridArray[i])).isProcessed()){
+
+				}
+				else{
+					totalProcessed++;
+				}
+			}
+			//System.out.println("Total processed: " + totalProcessed + ", Size: " + gridArray.length);
+		}
 	}
 
 	public String findMove (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass currentBoard){
