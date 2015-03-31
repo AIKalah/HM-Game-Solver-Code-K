@@ -202,12 +202,6 @@ public class KMain {
 			}
 			//Solve Hash
 			else if (command.equals("s")){
-				/*functions.limitedbuildHash(allGrids, allGridsKeys, grid.clone(), (byte) 2);
-				while (grid2.isPlayerTwoTurn() != wePlayerOne) {
-					kalahOption move = functions.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
-					System.out.println("\nThe move: " + move);
-					grid2 = allGridsKeys.get(move.getGrid());
-				}*/
 				functions.buildHash(allGrids, allGridsKeys, grid.clone());
 				System.out.println("\nRoot: " + allGridsKeys.get(grid));
 				System.out.println("\nHashmap Size: " + allGridsKeys.size());
@@ -227,10 +221,30 @@ public class KMain {
 					grid2 = allGridsKeys.get(move.getGrid());
 				}
 			}
+			else if (command.equals("ls")){
+				allGrids.clear();
+				allGridsKeys.clear();
+				kalahFunctions functions1 = new kalahFunctions();
+				LinkedList<kalahOption> startGridList1 = new LinkedList<kalahOption>();
+				allGridsKeys.put(grid2, grid2);
+				allGrids.put(grid2, startGridList1);
+				
+				functions1.limitedbuildHash(allGrids, allGridsKeys, grid2.clone(), (byte) 2);
+				while (grid2.isPlayerTwoTurn() != wePlayerOne) {
+					kalahOption move = functions1.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+					System.out.println("\nThe move: " + move);
+					grid2 = allGridsKeys.get(move.getGrid());
+				}
+				grid2.setTurnCounter((byte) 1);
+			}
+			
+			else if (command.equals("fls")) {
+				
+			}
+			
 			else{
 				
 			}
-		
 			
 			
 			
