@@ -24,7 +24,7 @@ public class KMain {
 	public static int numofcols = 5; 
 	public static int numofseeds = 3;
 	//This is for you Chris
-	public static boolean wePlayerOne = true;
+	public static boolean wePlayerOne = false;
 	
 	//BufferedReader to get user input
 		private static BufferedReader seedCalc = null;
@@ -215,10 +215,21 @@ public class KMain {
 					System.out.println("\nDone printing Hashmap");
 				}
 				
-				while (grid2.isPlayerTwoTurn() != wePlayerOne) {
-					kalahOption move = functions.findMove(allGrids, allGridsKeys, grid2.clone());
-					System.out.println("\nThe move: " + move);
-					grid2 = allGridsKeys.get(move.getGrid());
+				if (wePlayerOne){
+					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
+						kalahOption move = functions.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+						System.out.println("\nThe move: " + move);
+						grid2 = allGridsKeys.get(move.getGrid());
+					}
+					grid2.setTurnCounter((byte) 1);
+				}
+				else if (!wePlayerOne){
+					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
+						kalahOption move = functions.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+						System.out.println("\nThe move: " + move);
+						grid2 = allGridsKeys.get(move.getGrid());
+					}
+					grid2.setTurnCounter((byte) 1);
 				}
 			}
 			else if (command.equals("ls")){
@@ -231,12 +242,23 @@ public class KMain {
 				allGrids.put(grid2, startGridList1);
 				
 				functions1.limitedbuildHash(allGrids, allGridsKeys, grid2.clone(), (byte) 4);
-				while (grid2.isPlayerTwoTurn() != wePlayerOne) {
-					kalahOption move = functions1.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
-					System.out.println("\nThe move: " + move);
-					grid2 = allGridsKeys.get(move.getGrid());
+				if (wePlayerOne){
+					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
+						kalahOption move = functions1.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+						System.out.println("\nThe move: " + move);
+						grid2 = allGridsKeys.get(move.getGrid());
+					}
+					grid2.setTurnCounter((byte) 1);
 				}
-				grid2.setTurnCounter((byte) 1);
+				else if (!wePlayerOne){
+					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
+						kalahOption move = functions1.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+						System.out.println("\nThe move: " + move);
+						grid2 = allGridsKeys.get(move.getGrid());
+					}
+					grid2.setTurnCounter((byte) 1);
+				}
+			
 			}
 			
 			else if (command.equals("fls")) {
@@ -251,10 +273,21 @@ public class KMain {
 					System.out.println("\nDone printing Hashmap");
 				}
 				
-				while (grid2.isPlayerTwoTurn() != wePlayerOne) {
-					kalahOption move = functions.findMove(allGrids, allGridsKeys, grid2.clone());
-					System.out.println("\nThe move: " + move);
-					grid2 = allGridsKeys.get(move.getGrid());
+				if (wePlayerOne){
+					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
+						kalahOption move = functions.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+						System.out.println("\nThe move: " + move);
+						grid2 = allGridsKeys.get(move.getGrid());
+					}
+					grid2.setTurnCounter((byte) 1);
+				}
+				else if (!wePlayerOne){
+					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
+						kalahOption move = functions.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+						System.out.println("\nThe move: " + move);
+						grid2 = allGridsKeys.get(move.getGrid());
+					}
+					grid2.setTurnCounter((byte) 1);
 				}
 			}
 			else if (command.equals("m")){
