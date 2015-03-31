@@ -10,8 +10,8 @@ public class KMain {
 	
 	public static byte [][] gridInit = new byte[][] { 
 	
-	{0,1,1,1,0,3,3,0},
-	{0,1,2,1,0,3,3,0}
+	{0,3,3,3,3,3,3,0},
+	{0,3,3,3,3,3,3,0}
 	};
 	
 	
@@ -21,10 +21,10 @@ public class KMain {
 	public static kalahArrayClass grid2 = new kalahArrayClass(gridInit, false, false, false);
 	
 	public static int numofrows = 2;
-	public static int numofcols = 5; 
+	public static int numofcols = 8; 
 	public static int numofseeds = 3;
 	//This is for you Chris
-	public static boolean wePlayerOne = false;
+	public static boolean wePlayerOne = true;
 	
 	//BufferedReader to get user input
 		private static BufferedReader seedCalc = null;
@@ -65,6 +65,9 @@ public class KMain {
 		grid2 = grid.clone();
 		int turn = 1;
 		int seedsRemain = 36;
+		System.out.println("Are you player one?");
+		String player = commandInput.readLine();
+		wePlayerOne = Boolean.parseBoolean(player);
 		System.out.println("Enter In Number of Seeds Until Calculation: ");
 		String seedCalcs = seedCalc.readLine();
 		int seeds = Integer.parseInt(seedCalcs);
@@ -79,6 +82,8 @@ public class KMain {
 				turn = 1;
 			}
 			if (!allRandom){
+				seedsRemain = (sumPlayertwo+sumPlayerone) - (grid2.getPlayerOneScore() + grid2.getPlayerTwoScore());
+				System.out.println(seedsRemain);
 				System.out.println("Enter Command: ");
 				command = commandInput.readLine();
 			}
@@ -93,7 +98,7 @@ public class KMain {
 					if (functions.canPlace(grid2, 1, pit)){
 						functions.playerOnePlace(grid2, 1, pit, allGrids, allGridsKeys);
 						if (!allGrids.get(grid2).isEmpty()){
-							seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
+							//seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
 						}
 						//grid2 = allGrids.get(grid2).get(0).getGrid();
 						kalahOption move = null;
@@ -122,7 +127,7 @@ public class KMain {
 					if (functions.canPlace(grid2, 0, pit)){
 						functions.playerTwoPlace(grid2, 0, pit, allGrids, allGridsKeys);
 						if (!allGrids.get(grid2).isEmpty()){
-							seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
+							//seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
 						}
 						//grid2 = allGrids.get(grid2).get(0).getGrid();
 						kalahOption move = null;
@@ -202,9 +207,18 @@ public class KMain {
 			}
 			//Solve Hash
 			else if (command.equals("s")){
-				functions.buildHash(allGrids, allGridsKeys, grid.clone());
-				System.out.println("\nRoot: " + allGridsKeys.get(grid));
+				allGrids.clear();
+				allGridsKeys.clear();
+				kalahFunctions functions1 = new kalahFunctions();
+				functions1.sum = sumPlayertwo+sumPlayerone;
+				LinkedList<kalahOption> startGridList1 = new LinkedList<kalahOption>();
+				allGridsKeys.put(grid2, grid2);
+				allGrids.put(grid2, startGridList1);
+				
+				functions1.buildHash(allGrids, allGridsKeys, grid2.clone());
+				System.out.println("\nRoot: " + allGridsKeys.get(grid2));
 				System.out.println("\nHashmap Size: " + allGridsKeys.size());
+			
 				
 				if (print == true){
 					System.out.println("\n\n\nPrint out from hashmap now:");
@@ -217,7 +231,7 @@ public class KMain {
 				
 				if (wePlayerOne){
 					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
-						kalahOption move = functions.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+						kalahOption move = functions1.findMove(allGrids, allGridsKeys, grid2.clone());
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
@@ -225,7 +239,7 @@ public class KMain {
 				}
 				else if (!wePlayerOne){
 					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
-						kalahOption move = functions.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+						kalahOption move = functions1.findMove(allGrids, allGridsKeys, grid2.clone());
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
@@ -262,7 +276,15 @@ public class KMain {
 			}
 			
 			else if (command.equals("fls")) {
-				functions.fulllimitedbuildHash(allGrids, allGridsKeys, grid2.clone(), (byte) 4);
+				allGrids.clear();
+				allGridsKeys.clear();
+				kalahFunctions functions1 = new kalahFunctions();
+				functions1.sum = sumPlayertwo+sumPlayerone;
+				LinkedList<kalahOption> startGridList1 = new LinkedList<kalahOption>();
+				allGridsKeys.put(grid2, grid2);
+				allGrids.put(grid2, startGridList1);
+				
+				functions1.fulllimitedbuildHash(allGrids, allGridsKeys, grid2.clone(), (byte) 4);
 				
 				if (print == true){
 					System.out.println("\n\n\nPrint out from hashmap now:");
@@ -275,7 +297,7 @@ public class KMain {
 				
 				if (wePlayerOne){
 					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
-						kalahOption move = functions.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+						kalahOption move = functions1.findMove(allGrids, allGridsKeys, grid2.clone());
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
@@ -283,7 +305,7 @@ public class KMain {
 				}
 				else if (!wePlayerOne){
 					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
-						kalahOption move = functions.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+						kalahOption move = functions1.findMove(allGrids, allGridsKeys, grid2.clone());
 						System.out.println("\nThe move: " + move);
 						grid2 = allGridsKeys.get(move.getGrid());
 					}
@@ -291,10 +313,21 @@ public class KMain {
 				}
 			}
 			else if (command.equals("m")){
-				while (grid2.isPlayerTwoTurn() != wePlayerOne) {
-					kalahOption move = functions.findMove(allGrids, allGridsKeys, grid2.clone());
-					System.out.println("\nThe move: " + move);
-					grid2 = allGridsKeys.get(move.getGrid());
+				if (wePlayerOne){
+					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
+						kalahOption move = functions.findMove(allGrids, allGridsKeys, grid2.clone());
+						System.out.println("\nThe move: " + move);
+						grid2 = allGridsKeys.get(move.getGrid());
+					}
+					grid2.setTurnCounter((byte) 1);
+				}
+				else if (!wePlayerOne){
+					while (grid2.isPlayerTwoTurn() != wePlayerOne) {
+						kalahOption move = functions.findMove(allGrids, allGridsKeys, grid2.clone());
+						System.out.println("\nThe move: " + move);
+						grid2 = allGridsKeys.get(move.getGrid());
+					}
+					grid2.setTurnCounter((byte) 1);
 				}
 			}
 			else{
