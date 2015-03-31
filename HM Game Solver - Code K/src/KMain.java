@@ -11,7 +11,7 @@ public class KMain {
 	public static byte [][] gridInit = new byte[][] { 
 	
 	{0,1,1,1,0,3,3,0},
-	{0,1,3,1,0,3,3,0}
+	{0,1,1,1,0,3,3,0}
 	};
 	
 	
@@ -184,9 +184,27 @@ public class KMain {
 			}
 			//Solve Hash
 			else if (command.equals("s")){
-				functions.limitedbuildHash(allGrids, allGridsKeys, grid.clone(), (byte) 2);
+				/*functions.limitedbuildHash(allGrids, allGridsKeys, grid.clone(), (byte) 2);
 				while (grid2.isPlayerTwoTurn() != wePlayerOne) {
 					kalahOption move = functions.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
+					System.out.println("\nThe move: " + move);
+					grid2 = allGridsKeys.get(move.getGrid());
+				}*/
+				functions.buildHash(allGrids, allGridsKeys, grid.clone());
+				System.out.println("\nRoot: " + allGridsKeys.get(grid));
+				System.out.println("\nHashmap Size: " + allGridsKeys.size());
+				
+				if (print == true){
+					System.out.println("\n\n\nPrint out from hashmap now:");
+					Iterator<kalahArrayClass> iterator = allGrids.keySet().iterator();
+					while (iterator.hasNext()) {
+					   System.out.println("\n" + iterator.next());
+					}
+					System.out.println("\nDone printing Hashmap");
+				}
+				
+				while (grid2.isPlayerTwoTurn() != wePlayerOne) {
+					kalahOption move = functions.findMove(allGrids, allGridsKeys, grid2.clone());
 					System.out.println("\nThe move: " + move);
 					grid2 = allGridsKeys.get(move.getGrid());
 				}

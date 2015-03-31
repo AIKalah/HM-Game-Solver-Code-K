@@ -120,6 +120,7 @@ public class kalahFunctions {
 						}
 					}
 				}
+				clonedGrid.setAverageScore(clonedGrid.getScoreDifference());
 				clonedGrid.setProcessed(true);
 			}
 			else if (sumPlayertwo == 0){
@@ -152,6 +153,7 @@ public class kalahFunctions {
 						}
 					}
 				}
+				clonedGrid.setAverageScore(clonedGrid.getScoreDifference());
 				clonedGrid.setProcessed(true);
 			}
 			
@@ -281,6 +283,7 @@ public class kalahFunctions {
 						}
 					}
 				}
+				clonedGrid.setAverageScore(clonedGrid.getScoreDifference());
 				clonedGrid.setProcessed(true);
 			}
 			else if (sumPlayerone == 0){
@@ -314,6 +317,7 @@ public class kalahFunctions {
 						}
 					}
 				}
+				clonedGrid.setAverageScore(clonedGrid.getScoreDifference());
 				clonedGrid.setProcessed(true);
 			}
 			
@@ -458,6 +462,7 @@ public class kalahFunctions {
 								}
 							}
 						}
+						allGridsKeys.get(gridArray[i]).setAverageScore(((kalahArrayClass) gridArray[i]).getScoreDifference());
 						((kalahArrayClass) gridArray[i]).setProcessed(true);
 					}
 				}
@@ -516,26 +521,29 @@ public class kalahFunctions {
 							if(keyGridList.get(j).getGrid().getTotalChildren() != allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren()){
 								keyGridList.get(j).getGrid().setTotalChildren(allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren());
 							}
+							winResults += allGridsKeys.get(keyGridList.get(j).getGrid()).getWinResults();
 							if (keyGridList.get(j).getGrid().getState().equals("WIN")){
 								winCount++;
 								if (keyGridList.get(j).getGrid().isGameOver()){
-									winResults += allGridsKeys.get(keyGridList.get(j).getGrid()).getWinResults() + 1;
+									winResults += 1;
 								}
 							}
+							lossResults += allGridsKeys.get(keyGridList.get(j).getGrid()).getLossResults();
 							if (keyGridList.get(j).getGrid().getState().equals("LOSS")){
 								lossCount++;
 								if (keyGridList.get(j).getGrid().isGameOver()){
-									lossResults += allGridsKeys.get(keyGridList.get(j).getGrid()).getLossResults() + 1;
+									lossResults += 1;
 								}
 							}
+							tieResults += allGridsKeys.get(keyGridList.get(j).getGrid()).getTieResults();
 							if (keyGridList.get(j).getGrid().getState().equals("TIE")){
 								tieCount++;
 								if (keyGridList.get(j).getGrid().isGameOver()){
-									tieResults += allGridsKeys.get(keyGridList.get(j).getGrid()).getTieResults() + 1;
+									tieResults += 1;
 								}
 							}
 							//Sum scores only of game over boards? Sum over boards too for a divisor
-							//scoreCount;
+							scoreCount += keyGridList.get(j).getGrid().getAverageScore();
 							childrenCount += allGridsKeys.get(keyGridList.get(j).getGrid()).getTotalChildren() + 1;
 						}
 					}
@@ -560,13 +568,13 @@ public class kalahFunctions {
 							((kalahArrayClass) gridArray[i]).setState("MIXED");
 						}
 						((kalahArrayClass) gridArray[i]).setProcessed(true);
-						((kalahArrayClass) gridArray[i]).setAverageScore(scoreCount);
+						((kalahArrayClass) gridArray[i]).setAverageScore(scoreCount/keyGridList.size());
 						((kalahArrayClass) gridArray[i]).setTotalChildren(childrenCount);
 						((kalahArrayClass) gridArray[i]).setWinResults(winResults);
 						((kalahArrayClass) gridArray[i]).setLossResults(lossResults);
 						((kalahArrayClass) gridArray[i]).setTieResults(tieResults);
 						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setProcessed(true);
-						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setAverageScore(scoreCount);
+						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setAverageScore(scoreCount/keyGridList.size());
 						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setTotalChildren(childrenCount);
 						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setWinResults(winResults);
 						allGridsKeys.get(((kalahArrayClass) gridArray[i])).setLossResults(lossResults);
@@ -905,7 +913,7 @@ public class kalahFunctions {
 	public kalahOption limitedFindMove (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass currentBoard){
 		kalahOption theMove = null;
 		boolean foundMove = false;
-		float bestScore = 0;
+		float bestScore = -1000;
 		LinkedList<kalahOption> keyGridList = allGrids.get(currentBoard);
 
 		if (!foundMove){
@@ -924,7 +932,7 @@ public class kalahFunctions {
 		}
 
 		if (!foundMove){
-			bestScore = 0;
+			bestScore = -1000;
 			for (int j = 0; j < keyGridList.size(); j++)
 			{
 				//Try for best average score
@@ -939,10 +947,10 @@ public class kalahFunctions {
 		return theMove;
 	}
 
-	public String findMove (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass currentBoard){
-		String theMove = "";
+	public kalahOption findMove (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass currentBoard){
+		kalahOption theMove = null;
 		boolean foundMove = false;
-		float bestRatio = 0;
+		float bestRatio = -1000;
 		LinkedList<kalahOption> keyGridList = allGrids.get(currentBoard);
 
 		if (!foundMove){
@@ -950,7 +958,7 @@ public class kalahFunctions {
 			{
 				//Try for win
 				if(allGridsKeys.get(keyGridList.get(j).getGrid()).getState().equals("WIN")){
-					theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+					theMove = keyGridList.get(j);
 					foundMove = true;
 					break;
 				}
@@ -958,7 +966,7 @@ public class kalahFunctions {
 		}
 
 		if (!foundMove){
-			bestRatio = 0;
+			bestRatio = -1000;
 			for (int j = 0; j < keyGridList.size(); j++)
 			{
 				//Try for lossless mixed = wins + ties
@@ -966,9 +974,10 @@ public class kalahFunctions {
 					long w = allGridsKeys.get(keyGridList.get(j).getGrid()).getWinResults();
 					long t = allGridsKeys.get(keyGridList.get(j).getGrid()).getTieResults();
 					long l = allGridsKeys.get(keyGridList.get(j).getGrid()).getLossResults();
-					if ((w+(t/2))/(w+t+l) > bestRatio){
-						bestRatio = (w+(t/2))/(w+t+l);
-						theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+					float calc = ((float)w+((float)t/2))/((float)w+(float)t+(float)l);
+					if (calc > bestRatio){
+						bestRatio = calc;
+						theMove = keyGridList.get(j);
 						foundMove = true;
 					}
 				}
@@ -976,7 +985,7 @@ public class kalahFunctions {
 		}
 
 		if (!foundMove){
-			bestRatio = 0;
+			bestRatio = -1000;
 			for (int j = 0; j < keyGridList.size(); j++)
 			{
 				//Try for other mixed
@@ -984,9 +993,10 @@ public class kalahFunctions {
 					long w = allGridsKeys.get(keyGridList.get(j).getGrid()).getWinResults();
 					long t = allGridsKeys.get(keyGridList.get(j).getGrid()).getTieResults();
 					long l = allGridsKeys.get(keyGridList.get(j).getGrid()).getLossResults();
-					if ((w+(t/2))/(w+t+l) > bestRatio){
-						bestRatio = (w+(t/2))/(w+t+l);
-						theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+					float calc = ((float)w+((float)t/2))/((float)w+(float)t+(float)l);
+					if (calc > bestRatio){
+						bestRatio = calc;
+						theMove = keyGridList.get(j);
 						foundMove = true;
 					}
 				}
@@ -998,7 +1008,7 @@ public class kalahFunctions {
 			{
 				//Try for unknown
 				if(allGridsKeys.get(keyGridList.get(j).getGrid()).getState().equals("UNKNOWN")){
-					theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+					theMove = keyGridList.get(j);
 					foundMove = true;
 					break;
 				}
@@ -1010,7 +1020,7 @@ public class kalahFunctions {
 			{
 				//Try for tie
 				if(allGridsKeys.get(keyGridList.get(j).getGrid()).getState().equals("TIE")){
-					theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+					theMove = keyGridList.get(j);
 					foundMove = true;
 					break;
 				}
@@ -1022,7 +1032,7 @@ public class kalahFunctions {
 			{
 				//Try for loss
 				if(allGridsKeys.get(keyGridList.get(j).getGrid()).getState().equals("LOSS")){
-					theMove = allGridsKeys.get(keyGridList.get(j).getGrid()).toString();
+					theMove = keyGridList.get(j);
 					foundMove = true;
 					break;
 				}
