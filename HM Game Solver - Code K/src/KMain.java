@@ -10,8 +10,8 @@ public class KMain {
 	
 	public static byte [][] gridInit = new byte[][] { 
 	
-	{0,1,1,1,0,3,3,0},
-	{0,1,1,1,0,3,3,0}
+	{0,3,3,3,3,3,3,0},
+	{0,3,3,3,3,3,3,0}
 	};
 	
 	
@@ -21,7 +21,7 @@ public class KMain {
 	public static kalahArrayClass grid2 = new kalahArrayClass(gridInit, false, false, false);
 	
 	public static int numofrows = 2;
-	public static int numofcols = 5; 
+	public static int numofcols = 8; 
 	public static int numofseeds = 3;
 	//This is for you Chris
 	public static boolean wePlayerOne = true;
@@ -225,11 +225,12 @@ public class KMain {
 				allGrids.clear();
 				allGridsKeys.clear();
 				kalahFunctions functions1 = new kalahFunctions();
+				functions1.sum = sumPlayertwo+sumPlayerone;
 				LinkedList<kalahOption> startGridList1 = new LinkedList<kalahOption>();
 				allGridsKeys.put(grid2, grid2);
 				allGrids.put(grid2, startGridList1);
 				
-				functions1.limitedbuildHash(allGrids, allGridsKeys, grid2.clone(), (byte) 2);
+				functions1.limitedbuildHash(allGrids, allGridsKeys, grid2.clone(), (byte) 4);
 				while (grid2.isPlayerTwoTurn() != wePlayerOne) {
 					kalahOption move = functions1.limitedFindMove(allGrids, allGridsKeys, grid2.clone());
 					System.out.println("\nThe move: " + move);
@@ -239,7 +240,7 @@ public class KMain {
 			}
 			
 			else if (command.equals("fls")) {
-				
+				functions.fulllimitedbuildHash(allGrids, allGridsKeys, grid2.clone(), (byte) 4);
 			}
 			
 			else{
