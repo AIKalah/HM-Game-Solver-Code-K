@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class kalahFunctions {
 	public static int numofrows = 2;
-	public static int numofcols = 8; 
+	public static int numofcols = 5; 
 	public static int numofseeds = 3;
 	private boolean checkEveryMove = false;
 	//public static byte currentseeds;
@@ -641,7 +641,7 @@ public class kalahFunctions {
 		}
 		//fillHash(allGrids, allGridsKeys);
 		//limitedfillHash(allGrids, allGridsKeys, limit);
-		limitedfillHash(allGrids, allGridsKeys, limit);
+		fulllimitedfillHash(allGrids, allGridsKeys, limit);
 	}
 	
 	public void buildHashStandAlone (HashMap<kalahArrayClass, LinkedList<kalahOption>> allGrids, HashMap<kalahArrayClass,kalahArrayClass> allGridsKeys, kalahArrayClass grid){
