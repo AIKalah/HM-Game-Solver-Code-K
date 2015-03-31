@@ -257,7 +257,13 @@ public class KMain {
 					grid2 = allGridsKeys.get(move.getGrid());
 				}
 			}
-			
+			else if (command.equals("m")){
+				while (grid2.isPlayerTwoTurn() != wePlayerOne) {
+					kalahOption move = functions.findMove(allGrids, allGridsKeys, grid2.clone());
+					System.out.println("\nThe move: " + move);
+					grid2 = allGridsKeys.get(move.getGrid());
+				}
+			}
 			else{
 				
 			}
