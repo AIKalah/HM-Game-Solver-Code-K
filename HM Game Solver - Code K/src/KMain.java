@@ -95,7 +95,16 @@ public class KMain {
 						if (!allGrids.get(grid2).isEmpty()){
 							seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
 						}
-						grid2 = allGrids.get(grid2).get(0).getGrid();
+						//grid2 = allGrids.get(grid2).get(0).getGrid();
+						kalahOption move = null;
+						LinkedList<kalahOption> keyGridList = allGrids.get(grid2);
+						for (int j = 0; j < keyGridList.size(); j++)
+						{
+							if (keyGridList.get(j).getRowOne() == 1 && keyGridList.get(j).getColOne() == pit){
+								move = keyGridList.get(j);
+							}
+						}
+						grid2 = allGridsKeys.get(move.getGrid());
 						if (grid2.isPlayerTwoTurn() == false){
 							
 						}
@@ -115,7 +124,16 @@ public class KMain {
 						if (!allGrids.get(grid2).isEmpty()){
 							seedsRemain = 36 - (allGrids.get(grid2).get(0).getGrid().getGrid()[0][0] + allGrids.get(grid2).get(0).getGrid().getGrid()[numofrows - 1][numofcols - 1]);
 						}
-						grid2 = allGrids.get(grid2).get(0).getGrid();
+						//grid2 = allGrids.get(grid2).get(0).getGrid();
+						kalahOption move = null;
+						LinkedList<kalahOption> keyGridList = allGrids.get(grid2);
+						for (int j = 0; j < keyGridList.size(); j++)
+						{
+							if (keyGridList.get(j).getRowOne() == 0 && keyGridList.get(j).getColOne() == pit){
+								move = keyGridList.get(j);
+							}
+						}
+						grid2 = allGridsKeys.get(move.getGrid());
 						if (grid2.isPlayerTwoTurn()){
 							
 						}
